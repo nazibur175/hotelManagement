@@ -1,22 +1,27 @@
 #include<bits/stdc++.h>
 #include<conio.h>
-#include <iostream>
-#include<fstream>
-#include<stdio.h>
-#include <cstdio>
+// #include <iostream>
+// #include<fstream>
+// #include<stdio.h>
+// #include <cstdio>
 using namespace std;
 class room;
 room* r[30];
 int n=0;
 class person;
 
+
+//class -1 
+//room 
 class room
 {
 public:
     int roomno;
     int status;
     int rent;
-    room():status(0) {}
+    room():status() {}
+    //Function 1 for
+    //isroom function
     int isroom(int rr)
     {
         {
@@ -30,6 +35,9 @@ public:
             return 1;
         }
     }
+    
+    // function -2 for room information  
+    //getroom info function 
     void getroomno()
     {
 en:
@@ -44,6 +52,8 @@ en:
             goto en;
         }
     }
+
+    // function 3 for putdata 
     void putdata()
     {
         cout<<"   "<<roomno;
@@ -52,11 +62,15 @@ en:
         else
             cout<<"            occupaied";
     }
+
+    // function 4 for room status check 
     int is_vacant(room* r)
     {
         if(r->status==0)return 1;
         else return 0;
     }
+
+    // function 5 for vacants room details 
     void vacateRoom(int rno)
     {
         int i;
@@ -66,29 +80,41 @@ en:
                 this->status=0;
         }
     }
+
+    
     virtual void getroominfo()=0;
     virtual void show()=0;
+
+    //function 6 for get rent 
     void getrent()
     {
         cin>>rent;
     }
 };
+
+
+// class 2 
 class viproom:public room
 {
     string rmtype;
     string rmsize;
     room *re;
 public:
+
+    //constructor 
     viproom()
     {
         rmtype="comfortable/ac";
         rmsize="big";
     }
+
+    //functon 1 for getroom information 
     void getroominfo()
     {
         room::getroomno();
     }
 
+    //function 2 for show room information 
     void show()
     {
         room::putdata();
@@ -96,6 +122,8 @@ public:
     }
 
 };
+
+// class 3 
 class norrom:public room
 {
 private:
@@ -103,16 +131,19 @@ private:
     string rmsize;
     room *re;
 public:
+    //constructor 
     norrom()
     {
         rmtype="non_ac";
         rmsize="small";
     }
+    //function 1 for get room information 
     void getroominfo()
     {
         room::getroomno();
 
     }
+    //function 2 for show details 
     void show()
     {
         room::putdata();
@@ -120,12 +151,15 @@ public:
     }
 
 };
+
+// class 4 for dish 
 class Dish
 {
     string disname;
     string distype;
 public:
     int price;
+    //constructor 
     Dish() {}
     Dish(string dish_name, float price, string dish_type)
     {
@@ -133,26 +167,32 @@ public:
         this->price = price;
         this->distype = dish_type;
     }
+    // function 1 for get dish 
     void get_dish()
     {
         cout<<disname<<"-"<<price<<"\n";
     }
-
+    // function 2 for get_dish_name 
     string get_dish_name()
     {
         return disname;
     }
 };
+
+// class 6
 class Restaurant
 {
     int cost;
 public:
+    //constructor 
     Restaurant()
     {
         cost=00;
     }
+    //map 
     map<string,vector<Dish>>dishes;
-    void resmanu()
+    // function -1 for resmenu 
+    void resmenu()
     {
         system("cls");
         cout<<"\n*******menu*******";
@@ -165,6 +205,8 @@ public:
             cout << "\n";
         }
     }
+
+    //function for dish time 
     void add_dish_ctime(string type, string name, float price)
     {
         Dish temp(name, price, type);
@@ -173,9 +215,10 @@ public:
     void order_food();
     friend int total_bill(Restaurant);
 };
+// function for oder food 
 void Restaurant::order_food()
 {
-    resmanu();
+    resmenu();
     string d,ty;
     int y;
     cout<<"enter the names of food you want to order\n0 for exit\n";
@@ -197,7 +240,11 @@ void Restaurant::order_food()
             cost=y*itr->price+cost;
     }
 }
-class roommanagment:protected viproom,protected norrom
+
+
+
+//class 7 for room management 
+class roomManagement:protected viproom,protected norrom
 {
 public:
     void searchRoom(int);
@@ -208,7 +255,7 @@ public:
     void typeroom();
 };
 
-void roommanagment::typeroom()
+void roomManagement::typeroom()
 {
     viproom* vv;
     norrom* nr;
@@ -244,7 +291,7 @@ void roommanagment::typeroom()
     if(c2==0)cout<<"there is no normal room";
 
 }
-void roommanagment::available_room()
+void roomManagement::available_room()
 {
 
     for(int i=0; i<n; i++)
@@ -256,7 +303,7 @@ void roommanagment::available_room()
     }
     getch();
 }
-void roommanagment::addroom()
+void roomManagement::addroom()
 {
     char ch;
     do
@@ -290,7 +337,7 @@ l:
     while(ch=='y');
     getch();
 }
-void roommanagment::displayRoom()
+void roomManagement::displayRoom()
 {
     cout<<"show all room:\n";
     cout<<"\n\n +---------+------------------+-----------------+-------------+------------+";
@@ -304,7 +351,7 @@ void roommanagment::displayRoom()
     }
     getch();
 }
-void roommanagment::searchRoom(int rr)
+void roomManagement::searchRoom(int rr)
 {
     for(int i=0; i<n; i++)
     {
@@ -319,7 +366,7 @@ void roommanagment::searchRoom(int rr)
     }
     getch();
 }
-void roommanagment::modifyroom(int rr)
+void roomManagement::modifyroom(int rr)
 {
     char ch;
     for(int i=0; i<n; i++)
@@ -340,7 +387,7 @@ void roommanagment::modifyroom(int rr)
     getch();
 }
 
-///person class start
+/// class for person details  
 class person
 {
     string name;
@@ -365,7 +412,7 @@ public:
         this->checkInTime = dt;
         status=0;
     }
-    void scerchcust();
+    void searchCustomer();
     void check_out();
     void edit();
     void food();
@@ -456,7 +503,7 @@ void person::edit()
 }
 
 
-    void person::scerchcust()
+    void person::searchCustomer()
 {
     string ana,usern,uu;
     cout<<"enter name: ";
@@ -529,10 +576,10 @@ int y;
 
 void menu()
 {
-    cout<<"1.manage room\n2.search room\n3.available room\n4.scerch perticular type room\n5.customer\n6.exit";
+    cout<<"1.manage room\n2.search room\n3.available room\n4.search perticular type room\n5.About customer\n6.exit\n";
 }
-void manageroom();
-void custt();
+void manageRoom();
+void aboutCustomer();
 
 
 
@@ -544,21 +591,23 @@ int main()
     cout<<"      \n\t\t\t| HOTEL MANAGEMENT PROJECT      |";
     cout<<"      \n\t\t\t--------------------------------";
     cout<<"      \n\n\t\t\t Developed By:   Nazibur Rahman(IT-21017)\n";
-    cout<<"      \t\t\t\t\t Mahmudul Hasan(IT-21017)\t\t\t\t\t   ";
+    cout<<"      \t\t\t\t\t Mahmudul Hasan(IT-21019)\t\t\t\t\t   ";
     cout<<"      \n\n\t\t\t submitted to :  S.M. Shamim";
     cout<<"      \n\t\t\t\t\t Assistant Professor  ";
     cout<<"      \n\t\t\t\t\t ICT,MBSTU  ";
-    cout<<"      \n\n\n\n\n\n\n\t\t\tPress any key to enter the main program!!";
+    cout<<"      \n\n\n\n\n\n\n\t\t\tPress any key to enter the main program!!\n";
+    
     int option;
     getch();
-    int rr;
+    int roomNo;
+    //person class object create
     person p;
     system("cls");
-    Restaurant aa;
-    roommanagment rm;
+    Restaurant res;
+    roomManagement rm;
     do
     {
-
+       
         system ("cls");
         menu();
         cout<<"enter your option: ";
@@ -566,47 +615,44 @@ int main()
         switch(option)
         {
         case 1:
-            manageroom();
+            manageRoom();
             break;
         case 2:
             cout<<"enter room no you want to secrch:";
-            cin>>rr;
-            rm.searchRoom(rr);
+            cin>>roomNo;
+            rm.searchRoom(roomNo);
             break;
         case 3:
             rm.available_room();
             break;
         case 4:
-
             //scerch only for normal or vip room
             rm.typeroom();
             break;
         case 5:
-
-            custt();
+            aboutCustomer();
             break;
         case 6:
             return 0;
         case 7:
-            aa.resmanu();
+            res.resmenu();
             getch();
             break;
-        default:
-            cout<<"enter write choice";
+        default :
+            cout<<"enter write choice\n";
             break;
         }
 
-
     }
     while (option!=6);
-    getch();
+    // getch();
 }
 
 
 
-void manageroom()
+void manageRoom()
 {
-    roommanagment rm;
+    roomManagement rm;
     int xx;
 
     do
@@ -637,7 +683,9 @@ void manageroom()
     }
     while (xx != 4);
 }
-void custt()
+
+
+void aboutCustomer()
 {
     person p;
     int j;
@@ -655,7 +703,7 @@ void custt()
             p.check_out();
             break;
         case 3:
-            p.scerchcust();
+            p.searchCustomer();
             break;
         case 4:
             p.edit();
