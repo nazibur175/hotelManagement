@@ -1,18 +1,15 @@
 #include<bits/stdc++.h>
 #include<conio.h>
-// #include <iostream>
-// #include<fstream>
-// #include<stdio.h>
-// #include <cstdio>
 using namespace std;
 class room;
 room* r[30];
 int n=0;
 class person;
 
-
-//class -1 
-//room 
+//void administrator();
+//void customer();
+//class -1
+//room
 class room
 {
 public:
@@ -35,9 +32,9 @@ public:
             return 1;
         }
     }
-    
-    // function -2 for room information  
-    //getroom info function 
+
+    // function -2 for room information
+    //getroom info function
     void getroomno()
     {
 en:
@@ -53,7 +50,7 @@ en:
         }
     }
 
-    // function 3 for putdata 
+    // function 3 for putdata
     void putdata()
     {
         cout<<"   "<<roomno;
@@ -63,14 +60,14 @@ en:
             cout<<"            occupaied";
     }
 
-    // function 4 for room status check 
+    // function 4 for room status check
     int is_vacant(room* r)
     {
         if(r->status==0)return 1;
         else return 0;
     }
 
-    // function 5 for vacants room details 
+    // function 5 for vacants room details
     void vacateRoom(int rno)
     {
         int i;
@@ -81,11 +78,11 @@ en:
         }
     }
 
-    
+
     virtual void getroominfo()=0;
     virtual void show()=0;
 
-    //function 6 for get rent 
+    //function 6 for get rent
     void getrent()
     {
         cin>>rent;
@@ -93,7 +90,7 @@ en:
 };
 
 
-// class 2 
+// class 2
 class viproom:public room
 {
     string rmtype;
@@ -101,20 +98,20 @@ class viproom:public room
     room *re;
 public:
 
-    //constructor 
+    //constructor
     viproom()
     {
         rmtype="comfortable/ac";
         rmsize="big";
     }
 
-    //functon 1 for getroom information 
+    //functon 1 for getroom information
     void getroominfo()
     {
         room::getroomno();
     }
 
-    //function 2 for show room information 
+    //function 2 for show room information
     void show()
     {
         room::putdata();
@@ -123,7 +120,7 @@ public:
 
 };
 
-// class 3 
+// class 3
 class norrom:public room
 {
 private:
@@ -131,19 +128,19 @@ private:
     string rmsize;
     room *re;
 public:
-    //constructor 
+    //constructor
     norrom()
     {
         rmtype="non_ac";
         rmsize="small";
     }
-    //function 1 for get room information 
+    //function 1 for get room information
     void getroominfo()
     {
         room::getroomno();
 
     }
-    //function 2 for show details 
+    //function 2 for show details
     void show()
     {
         room::putdata();
@@ -151,99 +148,99 @@ public:
     }
 
 };
+//
+//// class 4 for dish
+//class Dish
+//{
+//    string disname;
+//    string distype;
+//public:
+//    int price;
+//    //constructor
+//    Dish() {}
+//    Dish(string dish_name, float price, string dish_type)
+//    {
+//        this->disname = dish_name;
+//        this->price = price;
+//        this->distype = dish_type;
+//    }
+//    // function 1 for get dish
+//    void get_dish()
+//    {
+//        cout<<disname<<"-"<<price<<"\n";
+//    }
+//    // function 2 for get_dish_name
+//    string get_dish_name()
+//    {
+//        return disname;
+//    }
+//};
 
-// class 4 for dish 
-class Dish
-{
-    string disname;
-    string distype;
-public:
-    int price;
-    //constructor 
-    Dish() {}
-    Dish(string dish_name, float price, string dish_type)
-    {
-        this->disname = dish_name;
-        this->price = price;
-        this->distype = dish_type;
-    }
-    // function 1 for get dish 
-    void get_dish()
-    {
-        cout<<disname<<"-"<<price<<"\n";
-    }
-    // function 2 for get_dish_name 
-    string get_dish_name()
-    {
-        return disname;
-    }
-};
-
-// class 6
-class Restaurant
-{
-    int cost;
-public:
-    //constructor 
-    Restaurant()
-    {
-        cost=00;
-    }
-    //map 
-    map<string,vector<Dish>>dishes;
-    // function -1 for resmenu 
-    void resmenu()
-    {
-        system("cls");
-        cout<<"\n*******menu*******";
-        for(auto itr: dishes)
-        {
-            cout << itr.first << ":\n";
-            for (int i = 0; i < itr.first.size(); i++) cout << "-";
-            cout << "\n";
-            for (auto it : itr.second) it.get_dish();
-            cout << "\n";
-        }
-    }
-
-    //function for dish time 
-    void add_dish_ctime(string type, string name, float price)
-    {
-        Dish temp(name, price, type);
-        dishes[type].push_back(temp);
-    }
-    void order_food();
-    friend int total_bill(Restaurant);
-};
-// function for oder food 
-void Restaurant::order_food()
-{
-    resmenu();
-    string d,ty;
-    int y;
-    cout<<"enter the names of food you want to order\n0 for exit\n";
-    while(d!="0")
-    {
-        cin>>ty;
-        cout<<"which one:";
-        cin>>d;
-        cout<<"quantity\n";
-        cin>>y;
-        auto itr=dishes[ty].begin();
-        for(; itr != dishes[ty].end(); itr++)
-
-            if(d==itr->get_dish_name())
-                break;
-        if (itr ==dishes[ty].end())
-            cout << "\nno item";
-        else
-            cost=y*itr->price+cost;
-    }
-}
+//// class 6
+//class Restaurant
+//{
+//    int cost;
+//public:
+//    //constructor
+//    Restaurant()
+//    {
+//        cost=00;
+//    }
+//    //map
+//    map<string,vector<Dish>>dishes;
+//    // function -1 for resmenu
+//    void resmenu()
+//    {
+//        system("cls");
+//        cout<<"\n*******menu*******";
+//        for(auto itr: dishes)
+//        {
+//            cout << itr.first << ":\n";
+//            for (int i = 0; i < itr.first.size(); i++) cout << "-";
+//            cout << "\n";
+//            for (auto it : itr.second) it.get_dish();
+//            cout << "\n";
+//        }
+//    }
+//
+//    //function for dish time
+//    void add_dish_ctime(string type, string name, float price)
+//    {
+//        Dish temp(name, price, type);
+//        dishes[type].push_back(temp);
+//    }
+//    void order_food();
+//    friend int total_bill(Restaurant);
+//};
+//// function for oder food
+//void Restaurant::order_food()
+//{
+//    resmenu();
+//    string d,ty;
+//    int y;
+//    cout<<"enter the names of food you want to order\n0 for exit\n";
+//    while(d!="0")
+//    {
+//        cin>>ty;
+//        cout<<"which one:";
+//        cin>>d;
+//        cout<<"quantity\n";
+//        cin>>y;
+//        auto itr=dishes[ty].begin();
+//        for(; itr != dishes[ty].end(); itr++)
+//
+//            if(d==itr->get_dish_name())
+//                break;
+//        if (itr ==dishes[ty].end())
+//            cout << "\nno item";
+//        else
+//            cost=y*itr->price+cost;
+//    }
+//}
+//
 
 
-
-//class 7 for room management 
+//class 7 for room management
 class roomManagement:protected viproom,protected norrom
 {
 public:
@@ -259,7 +256,7 @@ void roomManagement::typeroom()
 {
     viproom* vv;
     norrom* nr;
-    cout<<"what you want to scerch.\n1.vip room or 2. normal room";
+    cout<<"what you want to scerch.\n1.vip room or 2. normal room\n";
     int j,c1=0,c2=0;
     cin>>j;
     if(j==2)
@@ -286,43 +283,53 @@ void roomManagement::typeroom()
 
         }
     }
-    if(c1==0)
-        cout<<"there are no vip room";
-    if(c2==0)cout<<"there is no normal room";
+    if(c1==0 && j==1)
+        cout<<"there are no vip room\n";
+    else
+        cout<<"there is no normal room\n";
+    getch();
 
 }
 void roomManagement::available_room()
 {
-
+    bool flag=false;
     for(int i=0; i<n; i++)
     {
         if(r[i]->status==0)
         {
             r[i]->show();
+            flag = true;
         }
     }
+    if(flag==false)
+        cout<<"There is no available room.\n";
     getch();
 }
+
+
 void roomManagement::addroom()
 {
     char ch;
+    int option ;
     do
     {
 
-        cout<<"1.VIP ROOM(press v)\n2.AFFORTABLE ROOM(press a)\nenter n for exit\nenter room type: ";
-        cin>>ch;
-        if(ch=='v')
+        cout<<"1.VIP ROOM\n2.AFFORTABLE ROOM\n3.Back\nenter your option: ";
+        cin>>option;
+        if(option==1)
         {
             r[n]=new viproom;
             r[n]->getroominfo();
             n++;
         }
-        else if(ch=='a')
+        else if(option==2)
         {
             r[n]=new norrom;
             r[n]->getroominfo();
             n++;
         }
+        else if(option==3)
+            break;
         else
         {
             cout<<"enter correct choice\n";
@@ -330,13 +337,15 @@ void roomManagement::addroom()
         }
 
 l:
-        cout<<"do you want to continue:(y or n)";
+        cout<<"do you want to continue:(y or n)\n";
         cin>>ch;
 
     }
     while(ch=='y');
-    getch();
+    // getch();
 }
+
+
 void roomManagement::displayRoom()
 {
     cout<<"show all room:\n";
@@ -351,21 +360,30 @@ void roomManagement::displayRoom()
     }
     getch();
 }
+
+
 void roomManagement::searchRoom(int rr)
 {
     for(int i=0; i<n; i++)
     {
         if(r[i]->roomno==rr)
-        {cout<<"show all room:\n";
-    cout<<"\n\n +---------+------------------+-----------------+-------------+------------+";
-    cout<<"\n | Room No.|    status        |      rent   |   Room size  |    room type    ";
-    cout<<"\n +---------+------------------+-----------------+--------------+-------------+\n";
+        {
+            cout<<"show all room:\n";
+            cout<<"\n\n +---------+------------------+-----------------+-------------+------------+";
+            cout<<"\n | Room No.|    status        |      rent   |   Room size  |    room type    ";
+            cout<<"\n +---------+------------------+-----------------+--------------+-------------+\n";
             r[i]->show();
             cout<<endl;
+        }
+        else
+        {
+            cout<<"There is no data for the Room\n";
         }
     }
     getch();
 }
+
+
 void roomManagement::modifyroom(int rr)
 {
     char ch;
@@ -387,7 +405,7 @@ void roomManagement::modifyroom(int rr)
     getch();
 }
 
-/// class for person details  
+/// class for person details
 class person
 {
     string name;
@@ -419,61 +437,63 @@ public:
     void checkin();
     friend int total_bill(Restaurant);
 };
+
 void person::checkin()
 {
     int m,flag=0,p;
-        ofstream fout;
-        cout<<"enter room no: ";
-        cin>>p;
-        for(int i=0; i<n; i++)
-        {
-            if(r[i]->roomno==p &&r[i]->status==0)
-            {
-                cout<<"this room is available";
-                m=i;
-                flag=1;
-                r[i]->status=1;//bill=r[i]->rent;
-                break;
-            }
-        }
-        if(flag==0)
-        {
-            cout<<"this room is not available";
-        }
-        else
-        {
-            bill=r[m]->rent;
-            cout<<"\nenter name: ";
-            cin>>name;
-            string uname=name+".txt";
-            fout.open(uname.c_str());
-            {
-                int ds;
-                cout<<"enter discout: ";
-                cin>>ds;
-                bill=(r[m]->rent*(100-ds))/100;
-            }
+    ofstream fout;
+    cout<<"enter room no: ";
+    cin>>p;
 
-            time_t now=time(0);
-            string dt = ctime(&now);
-            this->checkInTime = dt;
-            rn=p;
-            cout<<" Address: ";
-            cin>>add;
-            cout<<" Phone Number: ";
-            cin>>phone;
-            cout<<" Number of Days: ";
-            cin>>day;
-            bill=bill*day;
-            status=1;
-            fout<<name<<endl<<rn<<endl<<add<<endl<<phone<<endl<<day<<endl<<status;
-            //fout.write((char*)this, sizeof(this));
-            cout<<"\n Room has been booked.";
+    for(int i=0; i<n; i++)
+    {
+        if(r[i]->roomno==p &&r[i]->status==0)
+        {
+            cout<<"this room is available";
+            m=i;
+            flag=1;
+            r[i]->status=1;//bill=r[i]->rent;
+            break;
+        }
+    }
+    if(flag==0)
+    {
+        cout<<"this room is not available\n";
+    }
+    else
+    {
+        bill=r[m]->rent;
+        cout<<"\nenter name: ";
+        cin>>name;
+        string uname=name+".txt";
+        fout.open(uname.c_str());
+        {
+            int ds;
+            cout<<"enter discout: ";
+            cin>>ds;
+            bill=(r[m]->rent*(100-ds))/100;
         }
 
-        cout<<"press any key";
-        getch();
-        fout.close();
+        time_t now=time(0);
+        string dt = ctime(&now);
+        this->checkInTime = dt;
+        rn=p;
+        cout<<" Address: ";
+        cin>>add;
+        cout<<" Phone Number: ";
+        cin>>phone;
+        cout<<" Number of Days: ";
+        cin>>day;
+        bill=bill*day;
+        status=1;
+        fout<<name<<endl<<rn<<endl<<add<<endl<<phone<<endl<<day<<endl<<status;
+        //fout.write((char*)this, sizeof(this));
+        cout<<"\n Room has been booked.";
+    }
+
+    cout<<"press any key to continue\n";
+    getch();
+    fout.close();
 }
 
 int total_bill(Restaurant p)
@@ -503,7 +523,7 @@ void person::edit()
 }
 
 
-    void person::searchCustomer()
+void person::searchCustomer()
 {
     string ana,usern,uu;
     cout<<"enter name: ";
@@ -540,8 +560,9 @@ void person::edit()
 
 
 void person::check_out()
-{   char u[20],cc;
-int y;
+{
+    char u[20],cc;
+    int y;
     string ana,usern,uu;
     cout<<"enter name: ";
     cin>>ana;
@@ -555,17 +576,21 @@ int y;
     else
     {
         while(filei)
-            {
-                filei.get(cc);
-                cout<<cc;
+        {
+            filei.get(cc);
+            cout<<cc;
 
-            } //y=(int)rn;
+        } //y=(int)rn;
     }
 
-    cout<<"enter room no:";cin>>y;
-    for(int i=0;i<n;i++)
+    cout<<"enter room no:";
+    cin>>y;
+    for(int i=0; i<n; i++)
     {
-        if(r[i]->roomno==y){r[i]->status=0;}
+        if(r[i]->roomno==y)
+        {
+            r[i]->status=0;
+        }
     }
     cout<<"enter this name again:";
     cin>>u;
@@ -576,38 +601,179 @@ int y;
 
 void menu()
 {
-    cout<<"1.manage room\n2.search room\n3.available room\n4.search perticular type room\n5.About customer\n6.exit\n";
+    cout<<"1.manage room\n2.search by room no\n3.available room\n4.search by category\n5.About customer\n6.Main Menu\n";
 }
 void manageRoom();
 void aboutCustomer();
 
 
 
-int main()
+//register funtion
+void registr()
+{
+    string reguser, regpass;
+    system("cls");
+    cout << "Enter the username :";
+    cin >> reguser;
+    cout << "Enter the password :";
+    cin >> regpass;
+    ofstream reg("database.txt", ios::app);
+    reg << reguser << ' ' << regpass << endl;
+    cout << "Registration is successfull\n";
+    getch();
+    administrator();
+}
+
+
+//login function
+
+void login()
+{
+    int exist=0;
+    string user, pass, u, p;
+    system("cls");
+    cout << "Enter the username :";
+    cin >> user;
+    cout << "Enter the password :";
+    cin >> pass;
+
+    ifstream input("database.txt");
+    while (input >> u >> p)
+    {
+        if (u == user && p == pass)
+        {
+            exist = 1;
+        }
+    }
+    input.close();
+    if (exist == 1)
+    {
+        cout << "Hello " << user << "\n We're glad that you're here \n";
+        customer();
+        return ;
+    }
+    else
+    {
+        cout << "Sorry,login error. \n";
+        cin.get();
+        cin.get();
+        return ;
+    }
+}
+
+//forgot function
+void forgot()
 {
 
+    system("cls");
+    cout << "1.search your account by username ";
+    cout << "\n2.Search your account by password";
+    cout << "\n3.Main menu";
+    cout << "\nEnter your choice :";
+    int ch;
+    cin>>ch;
+    switch (ch)
+    {
+    case 1:
+    {
+        int ex = 0;
+        string searchuser, su, sp;
+        ifstream searchu("database.txt");
+        cout << "Enter your remembered username :";
+        cin >> searchuser;
 
-    cout<<"      \n\t\t\t--------------------------------";
-    cout<<"      \n\t\t\t| HOTEL MANAGEMENT PROJECT      |";
-    cout<<"      \n\t\t\t--------------------------------";
-    cout<<"      \n\n\t\t\t Developed By:   Nazibur Rahman(IT-21017)\n";
-    cout<<"      \t\t\t\t\t Mahmudul Hasan(IT-21019)\t\t\t\t\t   ";
-    cout<<"      \n\n\t\t\t submitted to :  S.M. Shamim";
-    cout<<"      \n\t\t\t\t\t Assistant Professor  ";
-    cout<<"      \n\t\t\t\t\t ICT,MBSTU  ";
-    cout<<"      \n\n\n\n\n\n\n\t\t\tPress any key to enter the main program!!\n";
-    
+        while (searchu >> su >> sp)
+        {
+            if (su == searchuser)
+            {
+                ex = 1;
+                break;
+            }
+        }
+        searchu.close();
+        if (ex == 1)
+        {
+            cout << "Hurray : account found !\n";
+            cout << "Your password is " << sp<<endl;
+            getch();
+            administrator() ;
+
+        }
+        else
+        {
+            cout << "Sorry, Your account is not found \n";
+            getch();
+            forgot() ;
+        }
+        break;
+    }
+
+    case 2:
+    {
+        int exi = 0;
+        string searchpass, su2, sp2;
+        ifstream searchp("database.txt");
+        cout << "Enter the remembered password :";
+        cin >> searchpass;
+
+        while(searchp>>su2>>sp2)
+        {
+            if(sp2==searchpass)
+            {
+                exi =1 ;
+            }
+        }
+        searchp.close();
+        if(exi==1)
+        {
+            cout<<"Hurray ! the account found \n";
+            cout<<"Your Username is :"<<su2<<endl;
+            cout<<"Your password is :"<<sp2<<endl;
+            getch();
+            administrator() ;
+        }
+        else
+        {
+            cout << "Sorry, Your account is not found \n";
+            getch();
+            forgot() ;
+
+        }
+        break;
+    }
+
+    case 3:
+        return ;
+        break;
+    default :
+    {
+        cout<<"Your have a wrong choice. Press a key to try again.";
+        cin.get();
+        cin.get();
+        forgot();
+    }
+
+    }
+}
+
+
+
+
+
+
+//Customer funtion
+
+void customer()
+{
     int option;
-    getch();
     int roomNo;
-    //person class object create
     person p;
     system("cls");
     Restaurant res;
     roomManagement rm;
     do
     {
-       
+
         system ("cls");
         menu();
         cout<<"enter your option: ";
@@ -633,7 +799,7 @@ int main()
             aboutCustomer();
             break;
         case 6:
-            return 0;
+            return ;
         case 7:
             res.resmenu();
             getch();
@@ -645,22 +811,98 @@ int main()
 
     }
     while (option!=6);
-    // getch();
+    getch();
 }
+
+
+int main()
+{
+
+
+//    cout<<"      \n\t\t\t--------------------------------";
+//    cout<<"      \n\t\t\t| HOTEL MANAGEMENT PROJECT      |";
+//    cout<<"      \n\t\t\t--------------------------------";
+//    cout<<"      \n\n\t\t\t Developed By:   Nazibur Rahman(IT-21017)\n";
+//    cout<<"      \t\t\t\t\t Mahmudul Hasan(IT-21019)\t\t\t\t\t   ";
+//    cout<<"      \n\n\t\t\t submitted to :  S.M. Shamim";
+//    cout<<"      \n\t\t\t\t\t Assistant Professor  ";
+//    cout<<"      \n\t\t\t\t\t ICT,MBSTU  ";
+//    cout<<"      \n\n\n\n\n\n\n\t\t\tPress any key to enter the main program!!\n";
+//    getch();
+
+
+    system("cls");
+    cout<<"1.Administrator"<<endl;
+    cout<<"2.Customer"<<endl;
+    int choice;
+    cout<<"Please enter you choice :"<<endl;
+    cin>>choice;
+    switch(choice)
+    {
+    case 1:
+        administrator();
+        break;
+    case 2:
+        customer();
+        break;
+    default :
+        cout<<"Sorry wrong choice selected"<<endl;
+        break;
+
+    }
+
+
+
+
+}
+//
+////Administrator function
+//void administrator()
+//{
+//    system("cls");
+//    int choice;
+//    cout << " ********Login******\n";
+//    cout << "1.Login";
+//    cout << "\n2.register";
+//    cout << "\n3.Forgot Credentials";
+//    cout << "\nEnter your choice:";
+//    cin >> choice;
+//    switch (choice)
+//    {
+//    case 1:
+//        login();
+//        break;
+//    case 2:
+//        registr();
+//        break;
+//    case 3:
+//        forgot();
+//        break;
+//    case 4:
+//        cout << "Thanks for using the login page\n";
+//        break;
+//    default:
+//        cout << "Sorry,Wrong choice selected\n";
+//        return;
+//    }
+//}
+//
+
 
 
 
 void manageRoom()
 {
     roomManagement rm;
-    int xx;
+
+    int option;
 
     do
     {
         system("cls");
-        cout<<"1.add room\n2.display allroom\n3.modify room\n4.back to main manu\nenter your op:";
-        cin >> xx;
-        switch (xx)
+        cout<<"1.add room\n2.display all room\n3.modify room\n4.back to main manu\nenter your option:";
+        cin >> option;
+        switch (option)
         {
         case 1:
             rm.addroom();
@@ -669,20 +911,25 @@ void manageRoom()
             rm.displayRoom();
             break;
         case 3:
-            int h;
+            int roomNo;
             cout<<"enter room no:";
-            cin>>h;
-            rm.modifyroom(h);
+            cin>>roomNo;
+            rm.modifyroom(roomNo);
             break;
         case 4:
             break;
         default:
-            cout << "\nPlease Enter correct option";
+            cout << "\nPlease Enter correct option\n";
             break;
         }
     }
-    while (xx != 4);
+    while (option != 4);
 }
+
+
+
+
+
 
 
 void aboutCustomer()
@@ -692,7 +939,7 @@ void aboutCustomer()
     do
     {
         system("cls");
-        cout<<"1.check in\n2.check out\n3.scerch cust\n4.edit customer record\n5.back main page";
+        cout<<"1.check in\n2.check out\n3.search customer\n4.edit customer record\n5.back main page\n";
         cin>>j;
         switch(j)
         {
