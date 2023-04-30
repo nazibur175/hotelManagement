@@ -526,7 +526,7 @@ void person::edit()
 void person::searchCustomer()
 {
     string ana,usern,uu;
-    cout<<"enter name: ";
+    cout<<"Enter name: ";
     cin>>ana;
     uu=ana+".txt";
     ifstream filei;
@@ -544,8 +544,8 @@ void person::searchCustomer()
             cout<<"\n Customer Details";
             cout<<"\n ----------------";
             filei>>name>>rn>>add>>phone>>day>>bill>>checkInTime;
-            //cout<<"\n Name: "<<;
-            cout<<"\n\n Room Number: "<<name;
+            cout<<"\n Name: "<<name;
+            cout<<"\n Room Number: "<<rn;
             cout<<"\n Address: "<<add;
             cout<<"\n Phone Number: "<<phone;
             cout<<"\n Staying for "<<day<<" days.";

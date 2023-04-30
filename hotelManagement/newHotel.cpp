@@ -247,11 +247,12 @@ public:
             cout << "\n+---------+---------------+--------------+------------+-----------------+\n";
             while (vip >> roomNo >> bedNum >> ac >> rent >> status)
             {
-                if(status=="0")
-                cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     " << "Available" << endl;
-                else 
-                cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     " << "Booked" << endl;
-
+                if (status == "0")
+                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                         << "Available" << endl;
+                else
+                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                         << "Booked" << endl;
             }
         }
         else if (choice == 2)
@@ -263,11 +264,12 @@ public:
             cout << "\n+---------+---------------+--------------+------------+-----------------+\n";
             while (normal >> roomNo >> bedNum >> ac >> rent >> status)
             {
-                if(status=="0")
-                cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     " << "Available" << endl;
-                else 
-                cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     " << "Booked" << endl;
-
+                if (status == "0")
+                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                         << "Available" << endl;
+                else
+                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                         << "Booked" << endl;
             }
         }
         else
@@ -294,8 +296,9 @@ public:
             cout << "\n+---------+---------------+--------------+------------+-----------------+\n";
             while (vip >> roomNo >> bedNum >> ac >> rent >> status)
             {
-                if(status=="0")
-                cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     " << "Available" << endl;
+                if (status == "0")
+                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                         << "Available" << endl;
             }
         }
         else if (choice == 2)
@@ -307,8 +310,9 @@ public:
             cout << "\n+---------+---------------+--------------+------------+-----------------+\n";
             while (normal >> roomNo >> bedNum >> ac >> rent >> status)
             {
-                if(status=="0")
-                cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     " << "Available" << endl;
+                if (status == "0")
+                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                         << "Available" << endl;
             }
         }
         else
@@ -325,7 +329,7 @@ public:
         ofstream viproom("viproom.txt", ios::out);
         while (viptemp >> roomNo >> bedNum >> ac >> rent >> status)
         {
-                viproom << roomNo << " " << bedNum << " " << ac << " " << rent << " " << status << endl;
+            viproom << roomNo << " " << bedNum << " " << ac << " " << rent << " " << status << endl;
         }
     }
 
@@ -336,7 +340,7 @@ public:
         ofstream normalroom("normalroom.txt", ios::out);
         while (normaltemp >> roomNo >> bedNum >> ac >> rent >> status)
         {
-                normalroom << roomNo << " " << bedNum << " " << ac << " " << rent << " " << status << endl;
+            normalroom << roomNo << " " << bedNum << " " << ac << " " << rent << " " << status << endl;
         }
     }
 
@@ -364,7 +368,7 @@ public:
             {
                 if (rmNo == roomNo)
                 {
-                    
+
                     cout << "Please enter Number of bed" << endl;
                     cin >> bedNum;
                     cout << "Please enter Ac or Non-Ac" << endl;
@@ -384,10 +388,7 @@ public:
             copyvip();
             // vip.close();
             // viptemp.close();
-
         }
-
-
 
         else if (choice == 2)
         {
@@ -402,7 +403,7 @@ public:
             {
                 if (rmNo == roomNo)
                 {
-                    
+
                     cout << "Please enter Number of bed" << endl;
                     cin >> bedNum;
                     cout << "Please enter Ac or Non-Ac" << endl;
@@ -427,7 +428,170 @@ public:
         {
             return;
         }
+
+        getch();
+    }
+
+    void checkIn()
+    {
+        system("cls");
+        cout << "1.VIP Room" << endl;
+        cout << "2.Normal Room" << endl;
+        cout << "Enter your Choice:";
+        int choice;
+        cin >> choice;
+        string rm;
+        string name, vill, post, ps, dist, phn, days;
+        cout << "Room No :";
+        cin >> rm;
+
+        if (choice == 1)
+        {
+            cout << "Name:";
+            getchar();
+            getline(cin, name);
+
+            cout << "Village:";
+            getline(cin, vill);
+
+            cout << "P.O:";
+            getline(cin, post);
+
+            cout << "P.S:";
+            getline(cin, ps);
+
+            cout << "Dist.:";
+            getline(cin, dist);
+
+            cout << "Mobile:";
+            getline(cin, phn);
+
+            cout << "Number of days:";
+            getline(cin, days);
+
+            time_t now = time(0);
+            string dt = ctime(&now);
+
+            string uname = name + ".txt";
+            ofstream fout;
+            fout.open(uname.c_str());
+            fout << "Room No: " << rm << endl;
+            fout << "Room Type: VIP" <<endl;
+            fout << "Name: " << name << endl;
+            fout << "Village: " << vill << endl;
+            fout << "Post.: " << post << endl;
+            fout << "P.S: " << ps << endl;
+            fout << "Dist.: " << dist << endl;
+            fout << "Mobile: " << phn << endl;
+            fout << "Number of days: " << days << endl;
+            fout << "Date: " << dt << endl;
+            cout << "Check In Successful." << endl;
+            getch();
+
+
+
+
+        }
+        else if (choice == 2)
+        {
+            cout << "Name:";
+            getchar();
+            getline(cin, name);
+
+            cout << "Village:";
+            getline(cin, vill);
+
+            cout << "P.O:";
+            getline(cin, post);
+
+            cout << "P.S:";
+            getline(cin, ps);
+
+            cout << "Dist.:";
+            getline(cin, dist);
+
+            cout << "Mobile:";
+            getline(cin, phn);
+
+            cout << "Number of days:";
+            getline(cin, days);
+
+            time_t now = time(0);
+            string dt = ctime(&now);
+
+            string uname = name + ".txt";
+            ofstream fout;
+            fout.open(uname.c_str());
+            fout << "Room No: " << rm << endl;
+            fout << "Room Type: Normal" <<endl;
+            fout << "Name: " << name << endl;
+            fout << "Village: " << vill << endl;
+            fout << "Post.: " << post << endl;
+            fout << "P.S: " << ps << endl;
+            fout << "Dist.: " << dist << endl;
+            fout << "Mobile: " << phn << endl;
+            fout << "Number of days: " << days << endl;
+            fout << "Check In: " << dt << endl;
+            cout << "Check In Successful." << endl;
+            getch();
+        }
+        else
+        {
+            cout << "Your have a wrong choice. Press a key to try again.";
+            getch();
+            checkIn();
+        }
+    }
+    void checkout()
+    {
+        system("cls");
+        string name;
+        getchar();
+        cout << "Please Enter your Name:";
+        getline(cin, name);
         
+        // cout<<name<<endl;
+        // ifstream vip("viproom.txt", ios::app);
+        string uname = name + ".txt";
+        ifstream CustomerDetails(uname, ios::in);
+        string line;
+        while(getline(CustomerDetails,line)){
+            cout<<line<<endl;
+        }
+        cout << "Please Enter your Room No to confirm check out:";
+        string rmN;
+        cin >> rmN;
+        cout << "Please Enter admin secret code to confirm check out:";
+        int roomtype;
+        cin >> roomtype;
+
+
+        // if(roomtype==1111)
+        // {
+        //     ifstream vip("viproom.txt", ios::app);
+        //     while (vip >> roomNo >> bedNum >> ac >> rent >> status)
+        //     {
+        //         if (status == "1" && roomNo==rmN )
+        //         {
+
+        //         }
+        //     }
+
+        // }
+        // else if(roomtype==2222)
+        // {
+        //     ifstream normal("normalroom.txt", ios::app);
+        //     while (normal >> roomNo >> bedNum >> ac >> rent >> status)
+        //     {
+        //         if (status == "0")
+        //             cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+        //                  << "Available" << endl;
+        //     }
+
+        // }
+
+
+        cout << "Check Out Successful." << endl;
         getch();
     }
 };
@@ -438,12 +602,13 @@ public:
     void customermenu()
     {
         system("cls");
-        cout<<"1.Available Room"<<endl;
-        cout<<"2.Booking Room"<<endl;
-        cout<<"3.Main Menu"<<endl;
-        cout<<"Please enter your choice"<<endl;
+        cout << "1.Available Room" << endl;
+        cout << "2.Check In" << endl;
+        cout << "3.Check out" << endl;
+        cout << "4.Main Menu" << endl;
+        cout << "Please enter your choice" << endl;
         int choice;
-        cin>>choice;
+        cin >> choice;
         switch (choice)
         {
         case 1:
@@ -452,10 +617,16 @@ public:
             getch();
             customermenu();
         case 2:
-            cout<<"Booking Room"<<endl;
-            getch();
+            // cout << "Check In" << endl;
+            checkIn();
+            // getch();
             break;
         case 3:
+            // cout << "Check out" << endl;
+            // getch();
+            checkout();
+            break;
+        case 4:
             return;
         default:
             cout << "Your have a wrong choice. Press a key to try again.";
