@@ -2,8 +2,12 @@
 #include <fstream>
 #include <conio.h>
 #include <cstdio>
+#include<windows.h>
 using namespace std;
-
+void gotoxy(short x, short y){
+    COORD pos={x,y};
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),pos);
+}
 void manageRoom();
 
 class administrator
@@ -14,12 +18,18 @@ public:
         ofstream reg("username&password.txt", ios::app);
         // ofstream reg("username&password.txt");
         system("cls");
-        cout << " ********Admin Menu******\n";
+        gotoxy(50,4);
+        cout << "         Admin Menu        ";
+        gotoxy(50,5);
+        cout << "___________________________";
+        gotoxy(50,8);
         cout << "1.Login";
-        cout << "\n2.Forgot Credentials" << endl;
+        gotoxy(50,10);
+        cout << "2.Forgot Credentials" << endl;
+        gotoxy(50,12);
         cout << "3.Main Menu";
-        cout << "\nEnter your choice:";
-
+        gotoxy(50,14);
+        cout << "Enter your choice : ";
         int choice;
         cin >> choice;
         switch (choice)
@@ -816,12 +826,18 @@ public:
     void customermenu()
     {
         system("cls");
+        gotoxy(50,4);
         cout << "1.Available Room" << endl;
+        gotoxy(50,6);
         cout << "2.Check In" << endl;
+        gotoxy(50,8);
         cout << "3.Check out" << endl;
+        gotoxy(50,10);
         cout <<"4.purchase Food"<<endl;
+        gotoxy(50,12);
         cout << "5.Main Menu" << endl;
-        cout << "Please enter your choice" << endl;
+        gotoxy(50,14);
+        cout << "Please enter your choice : ";
         int choice;
         cin >> choice;
         switch (choice)
@@ -861,23 +877,45 @@ public:
 
 void mainMenu()
 {
+    gotoxy(50,4);
     cout << "1.Administrator" << endl;
+    gotoxy(50,6);
     cout << "2.Customer" << endl;
+    gotoxy(50,8);
     cout << "3.End the program" << endl;
+    gotoxy(50,10);
 }
 
 int main()
 {
-    // Homepage
-    cout << "      \n\t\t\t--------------------------------";
-    cout << "      \n\t\t\t| HOTEL MANAGEMENT PROJECT      |";
-    cout << "      \n\t\t\t--------------------------------";
-    cout << "      \n\n\t\t\t Developed By:   Nazibur Rahman(IT-21017)\n";
-    cout << "      \t\t\t\t\t Mahmudul Hasan(IT-21019)\t\t\t\t\t   ";
-    cout << "      \n\n\t\t\t submitted to :  S.M. Shamim";
-    cout << "      \n\t\t\t\t\t Assistant Professor  ";
-    cout << "      \n\t\t\t\t\t ICT,MBSTU  ";
-    cout << "      \n\n\n\n\n\n\n\t\t\tPress any key to enter the main program!!\n";
+    
+    gotoxy(50,4);
+    
+    cout << "---------------------------";
+    gotoxy(50,5);
+    cout << "| HOTEL MANAGEMENT PROJECT |";
+    gotoxy(50,6);
+    cout << "---------------------------";
+    
+    gotoxy(50,8);
+    cout << "Developed By :"<<endl;
+    gotoxy(50,9);
+    cout << "Nazibur Rahman(IT-21017)\n";
+    gotoxy(50,10);
+    cout << "Mahmudul Hasan(IT-21019)\n";
+    
+    gotoxy(50,12);
+    cout << "submitted to :"<<endl;
+    gotoxy(50,13);
+    cout << "S.M. Shamim"<<endl;
+    gotoxy(50,14);
+    cout << "Assistant Professor  ";
+    gotoxy(50,15);
+    cout << "ICT,MBSTU  ";
+
+    gotoxy(50,17);
+    cout << "Press any key to enter the main program!!\n";
+    gotoxy(50,18);
     getch();
 
     // Object creation
@@ -893,7 +931,8 @@ int main()
     {
         system("cls");
         mainMenu();
-        cout << "Please enter you choice :" << endl;
+        gotoxy(50,10);
+        cout << "Please enter you choice : ";
         cin >> choice;
         switch (choice)
         {
