@@ -432,6 +432,38 @@ public:
         getch();
     }
 
+    string findRent(string rmNo,int type){
+        if (type == 1)
+        {
+            // read mood
+            fstream vip;
+            vip.open("viproom.txt", ios::in);
+            while (vip >> roomNo >> bedNum >> ac >> rent >> status)
+            {
+                if (rmNo == roomNo)
+                {
+                    return rent;
+                }
+
+            }
+        }
+
+        else
+        {
+            // read mood
+            fstream normal;
+            normal.open("normalroom.txt", ios::in);
+            while (normal >> roomNo >> bedNum >> ac >> rent >> status)
+            {
+                if (rmNo == roomNo)
+                {
+                    return rent;
+                }
+
+            }
+        }
+        return "0";
+    }
     void changeStatus(string rmNo, int type, string stat)
     {
         if (type == 1)
@@ -551,6 +583,8 @@ public:
 
        else if (choice == 1)
         {
+            string tk = findRent(rm,1);
+            cout<<"Amount to be paid : "<<tk<<endl;
             cout << "Name:";
             getchar();
             getline(cin, name);
@@ -570,11 +604,12 @@ public:
             cout << "Mobile:";
             getline(cin, phn);
 
-            cout << "Number of days:";
-            getline(cin, days);
+            // cout << "Number of days:";
+            // getline(cin, days);
 
             time_t now = time(0);
             string dt = ctime(&now);
+
 
             string uname = name + ".txt";
             ofstream fout;
@@ -587,15 +622,31 @@ public:
             fout << "P.S: " << ps << endl;
             fout << "Dist.: " << dist << endl;
             fout << "Mobile: " << phn << endl;
-            fout << "Number of days: " << days << endl;
+            // fout << "Number of days: " << days << endl;
             fout << "Check In: " << dt << endl;
-            cout << "Check In Successful." << endl;
+
 
             changeStatus(rm, 1, "1");
+            cout << "Check In Successful." << endl;
+            getch();
+            system("cls");
+            cout<<"Do you want to purchase food ?"<<endl;
+            cout<<"1.Yes"<<endl;
+            cout<<"2.No"<<endl;
+            cout<<"Enter your choice:"<<endl;
+            int option;
+            cin>>option;
+            if(option==1)
+                purchaseFood();
+            
+        
+
             // getch();
         }
         else if (choice == 2)
         {
+            string tk = findRent(rm,2);
+            cout<<"Amount to be paid : "<<tk<<endl;
             cout << "Name:";
             getchar();
             getline(cin, name);
@@ -615,11 +666,12 @@ public:
             cout << "Mobile:";
             getline(cin, phn);
 
-            cout << "Number of days:";
-            getline(cin, days);
+            // cout << "Number of days:";
+            // getline(cin, days);
 
             time_t now = time(0);
             string dt = ctime(&now);
+
 
             string uname = name + ".txt";
             ofstream fout;
@@ -632,11 +684,21 @@ public:
             fout << "P.S: " << ps << endl;
             fout << "Dist.: " << dist << endl;
             fout << "Mobile: " << phn << endl;
-            fout << "Number of days: " << days << endl;
+            // fout << "Number of days: " << days << endl;
             fout << "Check In: " << dt << endl;
             cout << "Check In Successful." << endl;
-
             changeStatus(rm, 2, "1");
+
+            getch();
+            system("cls");
+            cout<<"Do you want to purchase food ?"<<endl;
+            cout<<"1.Yes"<<endl;
+            cout<<"2.No"<<endl;
+            cout<<"Enter your choice:"<<endl;
+            int option;
+            cin>>option;
+            if(option==1)
+                purchaseFood();
 
             // getch();
         }
@@ -648,6 +710,8 @@ public:
             // getch();
             // checkIn();
         }
+
+        
         getch();
         // return ;
     }
@@ -685,6 +749,65 @@ public:
         getch();
         // return ;
     }
+
+    void purchaseFood(){
+        system("cls");
+        cout<<"1.Bread Omelette + Banana + Water -100Tk"<<endl;
+        cout<<"2.Chicken Biriyani + Water -150TK"<<endl;
+        cout<<"3.Beef Khicuri + Water - 250Tk"<<endl;
+        int option;
+        cout<<"Please enter your Choice"<<endl;
+        cin>>option;
+        switch (option)
+        {
+        case 1:
+        {
+            cout<<"Amount to be paid - 100Tk"<<endl;
+            cout<<"Press 'paid' to continue"<<endl;
+            string s;
+            cin>>s;
+            if(s=="paid")
+                cout<<"Thanks for your Purchasing food"<<endl;
+            else
+                cout<<"Something went wrong"<<endl;
+            getch();
+            break;
+        }
+        case 2:
+        {
+            cout<<"Amount to be paid - 150Tk"<<endl;
+            cout<<"Press 'paid' to continue"<<endl;
+            string s;
+            cin>>s;
+            if(s=="paid")
+                cout<<"Thanks for your Purchasing food"<<endl;
+            else
+                cout<<"Something went wrong"<<endl;
+            getch();
+            break;
+        }
+        case 3:
+        {
+            cout<<"Amount to be paid - 250Tk"<<endl;
+            cout<<"Press 'paid' to continue"<<endl;
+            string s;
+            cin>>s;
+            if(s=="paid")
+                cout<<"Thanks for your Purchasing food"<<endl;
+            else
+                cout<<"Something went wrong"<<endl;
+            getch();
+            break;
+        }
+        default:
+        {
+            cout << "Your have a wrong choice. Press a key to try again.";
+            getch();
+            purchaseFood();
+            break;
+        }
+        }
+    }
 };
 
 class customer : public roomManagement
@@ -696,7 +819,8 @@ public:
         cout << "1.Available Room" << endl;
         cout << "2.Check In" << endl;
         cout << "3.Check out" << endl;
-        cout << "4.Main Menu" << endl;
+        cout <<"4.purchase Food"<<endl;
+        cout << "5.Main Menu" << endl;
         cout << "Please enter your choice" << endl;
         int choice;
         cin >> choice;
@@ -718,6 +842,11 @@ public:
             checkout();
             break;
         case 4:
+            // cout<<"Purchase food"<<endl;
+            purchaseFood();
+            // getch();
+            break;
+        case 5:
             return;
         default:
             cout << "Your have a wrong choice. Press a key to try again.";
