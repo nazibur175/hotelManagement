@@ -17,8 +17,7 @@ class administrator
 public:
     void adminMenu()
     {
-        // ofstream reg("username&password.txt", ios::app);
-        // ofstream reg("username&password.txt");
+
         system("cls");
 
         ProjectName();
@@ -26,19 +25,19 @@ public:
         cout << "|                                          |";
         gotoxy(50, 9);
         // cout << "+------------------------------------------+";
-        cout << "| 1.Login                                  |" << endl;
+        cout << "| 1. Login                                 |" << endl;
         gotoxy(50, 10);
         cout << "|                                          |";
         gotoxy(50, 11);
-        cout << "| 2.Forgot                                 |" << endl;
+        cout << "| 2. Forgot                                |" << endl;
         gotoxy(50, 12);
         cout << "|                                          |";
         gotoxy(50, 13);
-        cout << "| 3.Main Menu                              |" << endl;
+        cout << "| 3. Main Menu                             |" << endl;
         gotoxy(50, 14);
         cout << "|------------------------------------------|";
         gotoxy(50, 15);
-        cout << "  Please enter your choice : ";
+        cout << "   Please enter your choice : ";
 
         int choice;
         cin >> choice;
@@ -63,12 +62,15 @@ public:
 
     void login()
     {
-        int exist=0;
+        int exist = 0;
         string user, pass, u, p;
         system("cls");
-        cout << "Enter the username :";
+        ProjectName();
+        gotoxy(50, 9);
+        cout << "|  Enter the username: ";
         cin >> user;
-        cout << "Enter the password :";
+        gotoxy(50, 11);
+        cout << "|  Enter the password: ";
         cin >> pass;
         ifstream input("username&password.txt");
         while (input >> u >> p)
@@ -78,18 +80,15 @@ public:
                 exist = 1;
             }
         }
-        // input.close();
+
         if (exist == 1)
         {
-            // cout << "Hello " << user << "\n We're glad that you're here \n";
-            // getch();
             manageRoom();
-            // main();
-            // adminMenu();
         }
         else
         {
-            cout << "Sorry,login error. ";
+            gotoxy(50, 13);
+            cout << "|  Sorry,login error. ";
             getch();
             adminMenu();
         }
@@ -98,11 +97,25 @@ public:
     void forgot()
     {
         int ch;
+
         system("cls");
-        cout << "1.Search your account by username ";
-        cout << "\n2.Search your account by password";
-        cout << "\n3.Back";
-        cout << "\nEnter your choice: ";
+        ProjectName();
+        gotoxy(50, 8);
+        cout << "|                                          |";
+        gotoxy(50, 9);
+        cout << "| 1. Search your account by username       |";
+        gotoxy(50, 10);
+        cout << "|                                          |";
+        gotoxy(50, 11);
+        cout << "| 2. Search your account by password       |";
+        gotoxy(50, 12);
+        cout << "|                                          |";
+        gotoxy(50, 13);
+        cout << "| 3. Back                                  |";
+        gotoxy(50, 14);
+        cout << "|------------------------------------------|";
+        gotoxy(50, 15);
+        cout << "   Please enter your choice : ";
         cin >> ch;
         switch (ch)
         {
@@ -111,7 +124,13 @@ public:
             int ex = 0;
             string searchuser, su, sp;
             ifstream searchu("username&password.txt");
-            cout << "Enter your remembered username: ";
+
+            system("cls");
+            ProjectName();
+            gotoxy(50, 9);
+            cout << "|  Enter the remembered username: ";
+
+            // cout << "Enter your remembered username: ";
             cin >> searchuser;
 
             while (searchu >> su >> sp)
@@ -125,14 +144,33 @@ public:
             searchu.close();
             if (ex == 1)
             {
-                cout << "Hurray : account found !\n";
-                cout << "Your password is " << sp << endl;
+
+                system("cls");
+                ProjectName();
+                gotoxy(50, 8);
+                cout << "|                                          |";
+                gotoxy(50, 9);
+                cout << "|  Hurray ! the account found              |";
+                gotoxy(50, 10);
+                cout << "|                                          |";
+
+                gotoxy(50, 11);
+                cout << "|                                          |";
+                gotoxy(50, 12);
+                cout << "|  Your password is: " << sp << endl;
+                gotoxy(50, 13);
+                cout << "|                                          |";
+                gotoxy(50, 14);
+                cout << "+------------------------------------------+";
+
                 getch();
                 adminMenu();
             }
             else
             {
-                cout << "Sorry, Your account is not found. \n";
+                gotoxy(50, 11);
+                cout << "|  Sorry, Your account is not found. \n";
+                // cout << "Sorry, Your account is not found. \n";
                 getch();
                 adminMenu();
             }
@@ -144,7 +182,11 @@ public:
             int exi = 0;
             string searchpass, su2, sp2;
             ifstream searchp("username&password.txt");
-            cout << "Enter the remembered password: ";
+            system("cls");
+            ProjectName();
+            gotoxy(50, 9);
+            cout << "|  Enter the remembered password: ";
+            // cout << "Enter the remembered password: ";
             cin >> searchpass;
 
             while (searchp >> su2 >> sp2)
@@ -157,15 +199,31 @@ public:
             searchp.close();
             if (exi == 1)
             {
-                cout << "Hurray ! the account found \n";
-                cout << "Your Username is: " << su2 << endl;
-                cout << "Your password is: " << sp2 << endl;
+
+                system("cls");
+                ProjectName();
+                gotoxy(50, 8);
+                cout << "|                                          |";
+                gotoxy(50, 9);
+                cout << "|  Hurray ! the account found              |";
+                gotoxy(50, 10);
+                cout << "|                                          |";
+                gotoxy(50, 11);
+                cout << "|  Your Username is: " << su2 << endl;
+                gotoxy(50, 12);
+                cout << "|                                          |";
+                gotoxy(50, 13);
+                cout << "|  Your password is: " << sp2 << endl;
+                gotoxy(50, 14);
+                cout << "|------------------------------------------|";
+
                 getch();
                 adminMenu();
             }
             else
             {
-                cout << "Sorry, Your account is not found. \n";
+                gotoxy(50, 11);
+                cout << "|  Sorry, Your account  not found. \n";
                 getch();
                 adminMenu();
             }
@@ -190,14 +248,35 @@ class roomManagement
 {
 public:
     string roomNo, bedNum, ac, rent, status;
+    void vipOrNormal(){
+        system("cls");
+        ProjectName();
+        gotoxy(50, 8);
+        cout << "|                                          |";
+        gotoxy(50, 9);
+        cout << "| 1.Vip room                               |" << endl;
+        gotoxy(50, 10);
+        cout << "|                                          |";
+        gotoxy(50, 11);
+        cout << "| 2.Normal room                            |" << endl;
+        gotoxy(50, 12);
+        cout << "|                                          |";
+        gotoxy(50, 13);
+        cout << "| 3.Back                                   |" << endl;
+        gotoxy(50, 14);
+        cout << "|------------------------------------------|";
+        gotoxy(50, 15);
+        cout << "  Please enter your choice : ";
+    }
     void addRoom()
     {
-        // cout<<"Add Room"<<endl;
-        // getch();
-        system("cls");
-        cout << "1.Vip Room" << endl;
-        cout << "2.Normal Room" << endl;
-        cout << "3.Back" << endl;
+        
+
+        vipOrNormal();
+        // system("cls");
+        // cout << "1.Vip Room" << endl;
+        // cout << "2.Normal Room" << endl;
+        // cout << "3.Back" << endl;
         int choice;
         cin >> choice;
         if (choice == 1)
@@ -252,10 +331,11 @@ public:
     }
     void displayAllRoom()
     {
-        system("cls");
-        cout << "1.Vip Room" << endl;
-        cout << "2.Normal Room" << endl;
-        cout << "3.Back" << endl;
+        vipOrNormal();
+        // system("cls");
+        // cout << "1.Vip Room" << endl;
+        // cout << "2.Normal Room" << endl;
+        // cout << "3.Back" << endl;
         int choice;
         cin >> choice;
         if (choice == 1)
@@ -301,10 +381,11 @@ public:
 
     void displayAvailableRoom()
     {
-        system("cls");
-        cout << "1.Vip Room" << endl;
-        cout << "2.Normal Room" << endl;
-        cout << "3.Back" << endl;
+        vipOrNormal();
+        // system("cls");
+        // cout << "1.Vip Room" << endl;
+        // cout << "2.Normal Room" << endl;
+        // cout << "3.Back" << endl;
         int choice;
         cin >> choice;
         if (choice == 1)
@@ -366,10 +447,11 @@ public:
 
     void modifyRoom()
     {
-        system("cls");
-        cout << "1.Vip Room" << endl;
-        cout << "2.Normal Room" << endl;
-        cout << "3.Back" << endl;
+        vipOrNormal();
+        // system("cls");
+        // cout << "1.Vip Room" << endl;
+        // cout << "2.Normal Room" << endl;
+        // cout << "3.Back" << endl;
         int choice;
         cin >> choice;
         string rmNo;
@@ -581,11 +663,12 @@ public:
     }
     void checkIn()
     {
-        system("cls");
-        cout << "1.Vip Room" << endl;
-        cout << "2.Normal Room" << endl;
-        cout << "3.Back" << endl;
-        cout << "Enter your Choice: ";
+        vipOrNormal();
+        // system("cls");
+        // cout << "1.Vip Room" << endl;
+        // cout << "2.Normal Room" << endl;
+        // cout << "3.Back" << endl;
+        // cout << "Enter your Choice: ";
         int choice;
         cin >> choice;
         if (choice == 3)
@@ -597,7 +680,7 @@ public:
 
         string name, vill, post, ps, dist, phn, days;
         if (checkStatus(rm, choice) == 1)
-            cout << "This room is not available" << endl;
+            cout << "This room is not available!" << endl;
         // else if(checkStatus(rm,choice)==-1)
 
         else if (choice == 1)
@@ -648,8 +731,8 @@ public:
             getch();
             system("cls");
             cout << "Do you want to purchase food ?" << endl;
-            cout << "1.Yes" << endl;
-            cout << "2.No" << endl;
+            cout << "1. Yes" << endl;
+            cout << "2. No" << endl;
             cout << "Enter your choice: " << endl;
             int option;
             cin >> option;
@@ -661,24 +744,24 @@ public:
         else if (choice == 2)
         {
             string tk = findRent(rm, 2);
-            cout << "Amount to be paid : " << tk << endl;
-            cout << "Name:";
+            cout << "Amount to be paid: " << tk << endl;
+            cout << "Name: ";
             getchar();
             getline(cin, name);
 
-            cout << "Village:";
+            cout << "Village: ";
             getline(cin, vill);
 
-            cout << "P.O:";
+            cout << "P.O: ";
             getline(cin, post);
 
-            cout << "P.S:";
+            cout << "P.S: ";
             getline(cin, ps);
 
-            cout << "Dist.:";
+            cout << "Dist.: ";
             getline(cin, dist);
 
-            cout << "Mobile:";
+            cout << "Mobile: ";
             getline(cin, phn);
 
             // cout << "Number of days:";
@@ -706,9 +789,9 @@ public:
             getch();
             system("cls");
             cout << "Do you want to purchase food ?" << endl;
-            cout << "1.Yes" << endl;
-            cout << "2.No" << endl;
-            cout << "Enter your choice:" << endl;
+            cout << "1. Yes" << endl;
+            cout << "2. No" << endl;
+            cout << "Enter your choice: " << endl;
             int option;
             cin >> option;
             if (option == 1)
@@ -766,9 +849,9 @@ public:
     void purchaseFood()
     {
         system("cls");
-        cout << "1.Bread Omelette + Banana + Water -100Tk" << endl;
-        cout << "2.Chicken Biriyani + Water -150TK" << endl;
-        cout << "3.Beef Khicuri + Water - 250Tk" << endl;
+        cout << "1. Bread Omelette + Banana + Water -100Tk" << endl;
+        cout << "2. Chicken Biriyani + Water -150TK" << endl;
+        cout << "3. Beef Khicuri + Water - 250Tk" << endl;
         int option;
         cout << "Please enter your choice." << endl;
         cin >> option;
@@ -829,19 +912,36 @@ class customer : public roomManagement
 public:
     void customermenu()
     {
+
         system("cls");
-        gotoxy(50, 4);
-        cout << "1.Available Room" << endl;
-        gotoxy(50, 6);
-        cout << "2.Check In" << endl;
+
+        ProjectName();
         gotoxy(50, 8);
-        cout << "3.Check Out" << endl;
+        cout << "|                                          |";
+        gotoxy(50, 9);
+        cout << "| 1. Available room                        |";
         gotoxy(50, 10);
-        cout << "4.Purchase Food" << endl;
+        cout << "|                                          |";
+        gotoxy(50, 11);
+        cout << "| 2. Check in                              |";
         gotoxy(50, 12);
-        cout << "5.Main Menu" << endl;
+        cout << "|                                          |";
+        gotoxy(50, 13);
+        cout << "| 3. Check out                             |";
         gotoxy(50, 14);
-        cout << "Please enter your choice : ";
+        cout << "|                                          |";
+        gotoxy(50, 15);
+        cout << "| 4. Purchase food                         |";
+        gotoxy(50, 16);
+        cout << "|                                          |";
+        gotoxy(50, 17);
+        cout << "| 5. Main menu                             |";
+        gotoxy(50, 18);
+        cout << "|------------------------------------------|";
+        gotoxy(50, 19);
+        cout << "  Please enter your choice : ";
+
+
         int choice;
         cin >> choice;
         switch (choice)
@@ -886,15 +986,15 @@ void mainMenu()
     cout << "|                                          |";
     gotoxy(50, 9);
     // cout << "+------------------------------------------+";
-    cout << "| 1.Administrator                          |" << endl;
+    cout << "| 1. Administrator                         |" << endl;
     gotoxy(50, 10);
     cout << "|                                          |";
     gotoxy(50, 11);
-    cout << "| 2.Customer                               |" << endl;
+    cout << "| 2. Customer                              |" << endl;
     gotoxy(50, 12);
     cout << "|                                          |";
     gotoxy(50, 13);
-    cout << "| 3.End the program                        |" << endl;
+    cout << "| 3. End the program                       |" << endl;
     gotoxy(50, 14);
     cout << "|------------------------------------------|";
 }
@@ -982,7 +1082,29 @@ void manageRoom()
     do
     {
         system("cls");
-        cout << "1.Add room\n2.Display all room\n3.Modify room\n4.Back to main menu\nEnter your option:";
+
+        ProjectName();
+        gotoxy(50, 8);
+        cout << "|                                          |";
+        gotoxy(50, 9);
+        cout << "| 1. Add room                               |";
+        gotoxy(50, 10);
+        cout << "|                                          |";
+        gotoxy(50, 11);
+        cout << "| 2. Display all room                       |";
+        gotoxy(50, 12);
+        cout << "|                                          |";
+        gotoxy(50, 13);
+        cout << "| 3. Modify room                            |";
+        gotoxy(50, 14);
+        cout << "|                                          |";
+        gotoxy(50, 15);
+        cout << "| 4. Back to main menu                      |";
+        gotoxy(50, 16);
+        cout << "|------------------------------------------|";
+        gotoxy(50, 17);
+        cout << "  Please enter your choice : ";
+
         cin >> option;
         switch (option)
         {
