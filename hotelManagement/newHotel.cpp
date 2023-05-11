@@ -267,7 +267,7 @@ public:
         gotoxy(50, 14);
         cout << "+------------------------------------------+";
         gotoxy(50, 15);
-        cout << "=> Please enter your choice : ";
+        cout << "=> Please enter your choice: ";
         int op;
         cin >> op;
         switch (op)
@@ -275,46 +275,66 @@ public:
         case 1:
         {
             // cout<<"Individual"<<endl;
+            system("cls");
             getchar();
             string uname;
-            cout << "=> Please enter your name: " << endl;
+            ProjectName();
+            gotoxy(50, 9);
+            cout << "=> Please enter name: ";
             getline(cin, uname);
             ifstream CustomerDetails(uname + ".txt", ios::in);
             string line;
             // int i = 0;
-
-            while (getline(CustomerDetails, line))
+            if (CustomerDetails)
             {
-                // if(i>0)
-                cout << line << endl;
-                // i++;
-            }
-            cout << "Payment history" << endl;
-            uname = uname + "vau.txt";
+                system("cls");
+                ProjectName();
+                int x = 8;
+                while (getline(CustomerDetails, line))
+                {
+                    gotoxy(50, x += 1);
+                    cout << line << endl;
+                }
 
-            ifstream Customervau(uname, ios::in);
-            while (getline(Customervau, line))
-            {
-                // if(i>0)
-                cout << line << endl;
-                // i++;
+                uname = uname + "vau.txt";
+                ifstream Customervau(uname, ios::in);
+                if (Customervau)
+                {
+                    gotoxy(50, x += 1);
+                    cout << "Payment history" << endl;
+                    while (getline(Customervau, line))
+                    {
+                        gotoxy(50, x += 1);
+                        cout << line << endl;
+                    }
+                }
+                gotoxy(50, x += 1);
             }
+            else
+            {
+                gotoxy(50, 11);
+                cout << "=> No data available.";
+                // CustomerDetails();
+            }
+
             getch();
             break;
         }
         case 2:
         {
             system("cls");
+            ProjectName();
             ifstream CustomerDetails("AllCustomerInfo.txt", ios::in);
             string line;
-            // int i = 0;
-            cout << "     All Customer     " << endl;
-            cout << "----------------------" << endl;
+            gotoxy(50, 9);
+            cout << "All Customer: ";
+            gotoxy(50, 10);
+            cout << "-------------" << endl;
+            int x = 9;
             while (getline(CustomerDetails, line))
             {
-                // if(i>0)
-                cout << "*" << line << endl;
-                // i++;
+                gotoxy(50, x += 2);
+                cout << "=> " << line << endl;
             }
             getch();
             break;
@@ -329,6 +349,7 @@ public:
         default:
             break;
         }
+        manageRoom();
     }
     void vipOrNormal()
     {
@@ -367,10 +388,12 @@ public:
         gotoxy(50, 15);
         cout << "=> Please enter rent: ";
         cin >> rent;
+
         gotoxy(50, 17);
-        status = "0";
-        cout << "=> New room added successful.";
-        getch();
+        cout << "=> Please enter status: ";
+        cin >> status;
+
+        // status = "0";
     }
     void addRoom()
     {
@@ -382,6 +405,9 @@ public:
             ofstream vip("viproom.txt", ios::app);
             getRoomInfo();
             vip << roomNo << " " << bedNum << " " << ac << " " << rent << " " << status << endl;
+            gotoxy(50, 19);
+            cout << "=> New room added successful.";
+            getch();
         }
         else if (choice == 2)
         {
@@ -410,9 +436,40 @@ public:
         gotoxy(35, 10);
         cout << "+---------+---------------+--------------+------------+-----------------+";
     }
-    void allRoomInfo(string fName){
-        
+    void showAllRoomInfo(string fName)
+    {
+        ifstream vip(fName, ios::app);
+        int x = 10;
+        while (vip >> roomNo >> bedNum >> ac >> rent >> status)
+        {
+            gotoxy(35, x += 1);
+            if (status == "0")
+                cout << "   " << roomNo << "\t    " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                     << "Available" << endl;
+            else
+                cout << "   " << roomNo << "\t    " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                     << "Booked" << endl;
+        }
+        gotoxy(35, x + 1);
     }
+
+    void showAllAvailableRoomInfo(string fName)
+    {
+        ifstream vip(fName, ios::app);
+        int x = 10;
+        while (vip >> roomNo >> bedNum >> ac >> rent >> status)
+        {
+
+            if (status == "0")
+            {
+                gotoxy(35, x += 1);
+                cout << "   " << roomNo << "\t    " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                     << "Available" << endl;
+            }
+        }
+        gotoxy(35, x + 1);
+    }
+
     void displayAllRoom()
     {
         vipOrNormal();
@@ -421,40 +478,16 @@ public:
         if (choice == 1)
         {
             system("cls");
-            ifstream vip("viproom.txt", ios::app);
             ProjectName();
             tableMenu();
-            int x=10;
-            while (vip >> roomNo >> bedNum >> ac >> rent >> status)
-            {
-                gotoxy(35, x += 1);
-                if (status == "0")
-                    cout << "   " << roomNo << "\t    " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
-                         << "Available" << endl;
-                else
-                    cout << "   " << roomNo << "\t    " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
-                         << "Booked" << endl;
-            }
-            gotoxy(35,x+1);
+            showAllRoomInfo("viproom.txt");
         }
         else if (choice == 2)
         {
             system("cls");
-            ifstream normal("normalroom.txt", ios::app);
             ProjectName();
             tableMenu();
-            int x = 10;
-            while (normal >> roomNo >> bedNum >> ac >> rent >> status)
-            {
-                gotoxy(35, x += 1);
-                if (status == "0")
-                    cout << "   " << roomNo << "\t    " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
-                         << "Available" << endl;
-                else
-                    cout << "   " << roomNo << "\t    " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
-                         << "Booked" << endl;
-            }
-             gotoxy(35,x+1);
+            showAllRoomInfo("normalroom.txt");
         }
         else
         {
@@ -470,31 +503,17 @@ public:
         cin >> choice;
         if (choice == 1)
         {
-            ifstream vip("viproom.txt", ios::app);
-            cout << "show all vip available room:\n";
-            cout << "\n+---------+---------------+--------------+------------+-----------------+";
-            cout << "\n| Room No.| Number of bed | Ac or Non Ac |    Rent    |       Status    |";
-            cout << "\n+---------+---------------+--------------+------------+-----------------+\n";
-            while (vip >> roomNo >> bedNum >> ac >> rent >> status)
-            {
-                if (status == "0")
-                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
-                         << "Available" << endl;
-            }
+            system("cls");
+            ProjectName();
+            tableMenu();
+            showAllAvailableRoomInfo("viproom.txt");
         }
         else if (choice == 2)
         {
-            ifstream normal("normalroom.txt", ios::app);
-            cout << "show all normal available room:\n";
-            cout << "\n+---------+---------------+--------------+------------+-----------------+";
-            cout << "\n| Room No.| Number of bed | Ac or Non Ac |    Rent    |       Status    |";
-            cout << "\n+---------+---------------+--------------+------------+-----------------+\n";
-            while (normal >> roomNo >> bedNum >> ac >> rent >> status)
-            {
-                if (status == "0")
-                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
-                         << "Available" << endl;
-            }
+            system("cls");
+            ProjectName();
+            tableMenu();
+            showAllAvailableRoomInfo("normalroom.txt");
         }
         else
         {
@@ -524,17 +543,35 @@ public:
             normalroom << roomNo << " " << bedNum << " " << ac << " " << rent << " " << status << endl;
         }
     }
-
+    void getModifyInfo()
+    {
+        gotoxy(50, 11);
+        cout << "=> Please enter Number of bed: ";
+        cin >> bedNum;
+        gotoxy(50, 13);
+        cout << "=> Please enter Ac or Non-Ac: ";
+        cin >> ac;
+        gotoxy(50, 15);
+        cout << "=> Please enter Rent: ";
+        cin >> rent;
+        gotoxy(50, 17);
+        cout << "=> Please enter status: ";
+        cin >> status;
+        gotoxy(50, 19);
+        cout << "=> Modify successful.";
+        // status = "0";
+    }
     void modifyRoom()
     {
         vipOrNormal();
         int choice;
         cin >> choice;
+        system("cls");
+        ProjectName();
+        gotoxy(50, 9);
         string rmNo;
         if (choice == 1)
         {
-            cout << "Enter room no: ";
-            cin >> rmNo;
             // read mood
             fstream vip;
             vip.open("viproom.txt", ios::in);
@@ -542,20 +579,13 @@ public:
             fstream viptemp;
             viptemp.open("viptemp.txt", ios::out);
 
+            cout << "=> Please enter room no: ";
+            cin >> rmNo;
             while (vip >> roomNo >> bedNum >> ac >> rent >> status)
             {
                 if (rmNo == roomNo)
                 {
-
-                    cout << "Please enter Number of bed" << endl;
-                    cin >> bedNum;
-                    cout << "Please enter Ac or Non-Ac" << endl;
-                    cin >> ac;
-                    cout << "Please enter Rent" << endl;
-                    cin >> rent;
-                    cout << "Please enter status" << endl;
-                    cin >> status;
-                    // status = "0";
+                    getModifyInfo();
                     viptemp << roomNo << " " << bedNum << " " << ac << " " << rent << " " << status << endl;
                 }
                 else
@@ -568,8 +598,6 @@ public:
 
         else if (choice == 2)
         {
-            cout << "Enter room no: ";
-            cin >> rmNo;
             // read mood
             fstream normal;
             normal.open("normalroom.txt", ios::in);
@@ -577,20 +605,13 @@ public:
             fstream normaltemp;
             normaltemp.open("normaltemp.txt", ios::out);
 
+            cout << "=> Please enter room no: ";
+            cin >> rmNo;
             while (normal >> roomNo >> bedNum >> ac >> rent >> status)
             {
                 if (rmNo == roomNo)
                 {
-
-                    cout << "Please enter Number of bed" << endl;
-                    cin >> bedNum;
-                    cout << "Please enter Ac or Non-Ac" << endl;
-                    cin >> ac;
-                    cout << "Please enter Rent" << endl;
-                    cin >> rent;
-                    cout << "Please enter status" << endl;
-                    cin >> status;
-                    // status = "0";
+                    getModifyInfo();
                     normaltemp << roomNo << " " << bedNum << " " << ac << " " << rent << " " << status << endl;
                 }
                 else
@@ -599,8 +620,6 @@ public:
                 }
             }
             copynormal();
-            // vip.close();
-            // viptemp.close();
         }
         else
         {
