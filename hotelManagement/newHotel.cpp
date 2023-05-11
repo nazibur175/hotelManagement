@@ -35,9 +35,9 @@ public:
         gotoxy(50, 13);
         cout << "| 3. Main Menu                             |" << endl;
         gotoxy(50, 14);
-        cout << "|------------------------------------------|";
+        cout << "+------------------------------------------+";
         gotoxy(50, 15);
-        cout << "   Please enter your choice : ";
+        cout << "=> Please enter your choice : ";
 
         int choice;
         cin >> choice;
@@ -67,10 +67,10 @@ public:
         system("cls");
         ProjectName();
         gotoxy(50, 9);
-        cout << "|  Enter the username: ";
+        cout << "=>  Enter the username: ";
         cin >> user;
         gotoxy(50, 11);
-        cout << "|  Enter the password: ";
+        cout << "=>  Enter the password: ";
         cin >> pass;
         ifstream input("username&password.txt");
         while (input >> u >> p)
@@ -88,7 +88,7 @@ public:
         else
         {
             gotoxy(50, 13);
-            cout << "|  Sorry,login error. ";
+            cout << "  Sorry,login error. ";
             getch();
             adminMenu();
         }
@@ -113,9 +113,9 @@ public:
         gotoxy(50, 13);
         cout << "| 3. Back                                  |";
         gotoxy(50, 14);
-        cout << "|------------------------------------------|";
+        cout << "+------------------------------------------+";
         gotoxy(50, 15);
-        cout << "   Please enter your choice : ";
+        cout << "=> Please enter your choice : ";
         cin >> ch;
         switch (ch)
         {
@@ -248,74 +248,146 @@ class roomManagement
 {
 public:
     string roomNo, bedNum, ac, rent, status;
-    void vipOrNormal(){
+    void CustomerDetails()
+    {
         system("cls");
         ProjectName();
         gotoxy(50, 8);
         cout << "|                                          |";
         gotoxy(50, 9);
-        cout << "| 1.Vip room                               |" << endl;
+        cout << "| 1. Find individual customer              |" << endl;
         gotoxy(50, 10);
         cout << "|                                          |";
         gotoxy(50, 11);
-        cout << "| 2.Normal room                            |" << endl;
+        cout << "| 2. Show all customer                     |" << endl;
         gotoxy(50, 12);
         cout << "|                                          |";
         gotoxy(50, 13);
-        cout << "| 3.Back                                   |" << endl;
+        cout << "| 3. Back                                  |" << endl;
         gotoxy(50, 14);
-        cout << "|------------------------------------------|";
+        cout << "+------------------------------------------+";
         gotoxy(50, 15);
-        cout << "  Please enter your choice : ";
+        cout << "=> Please enter your choice : ";
+        int op;
+        cin >> op;
+        switch (op)
+        {
+        case 1:
+        {
+            // cout<<"Individual"<<endl;
+            getchar();
+            string uname;
+            cout << "=> Please enter your name: " << endl;
+            getline(cin, uname);
+            ifstream CustomerDetails(uname + ".txt", ios::in);
+            string line;
+            // int i = 0;
+
+            while (getline(CustomerDetails, line))
+            {
+                // if(i>0)
+                cout << line << endl;
+                // i++;
+            }
+            cout << "Payment history" << endl;
+            uname = uname + "vau.txt";
+
+            ifstream Customervau(uname, ios::in);
+            while (getline(Customervau, line))
+            {
+                // if(i>0)
+                cout << line << endl;
+                // i++;
+            }
+            getch();
+            break;
+        }
+        case 2:
+        {
+            system("cls");
+            ifstream CustomerDetails("AllCustomerInfo.txt", ios::in);
+            string line;
+            // int i = 0;
+            cout << "     All Customer     " << endl;
+            cout << "----------------------" << endl;
+            while (getline(CustomerDetails, line))
+            {
+                // if(i>0)
+                cout << "*" << line << endl;
+                // i++;
+            }
+            getch();
+            break;
+        }
+        case 3:
+        {
+            // return;
+            manageRoom();
+            break;
+        }
+
+        default:
+            break;
+        }
+    }
+    void vipOrNormal()
+    {
+        system("cls");
+        ProjectName();
+        gotoxy(50, 8);
+        cout << "|                                          |";
+        gotoxy(50, 9);
+        cout << "| 1. Vip room                              |" << endl;
+        gotoxy(50, 10);
+        cout << "|                                          |";
+        gotoxy(50, 11);
+        cout << "| 2. Normal room                           |" << endl;
+        gotoxy(50, 12);
+        cout << "|                                          |";
+        gotoxy(50, 13);
+        cout << "| 3. Back                                  |" << endl;
+        gotoxy(50, 14);
+        cout << "+------------------------------------------+";
+        gotoxy(50, 15);
+        cout << "=>Please enter your choice: ";
+    }
+    void getRoomInfo()
+    {
+        system("cls");
+        ProjectName();
+        gotoxy(50, 9);
+        cout << "=> Please enter room no: ";
+        cin >> roomNo;
+        gotoxy(50, 11);
+        cout << "=> Please enter number of bed: ";
+        cin >> bedNum;
+        gotoxy(50, 13);
+        cout << "=> Please enter Ac or Non-Ac: ";
+        cin >> ac;
+        gotoxy(50, 15);
+        cout << "=> Please enter rent: ";
+        cin >> rent;
+        gotoxy(50, 17);
+        status = "0";
+        cout << "=> New room added successful.";
+        getch();
     }
     void addRoom()
     {
-        
-
         vipOrNormal();
-        // system("cls");
-        // cout << "1.Vip Room" << endl;
-        // cout << "2.Normal Room" << endl;
-        // cout << "3.Back" << endl;
         int choice;
         cin >> choice;
         if (choice == 1)
         {
-            // cout<<"VIP"<<endl;
-            // getch();
             ofstream vip("viproom.txt", ios::app);
-            cout << "Please enter room no." << endl;
-            cin >> roomNo;
-            cout << "Please enter number of bed." << endl;
-            cin >> bedNum;
-            cout << "Please enter Ac or Non-Ac." << endl;
-            cin >> ac;
-            cout << "Please enter rent." << endl;
-            cin >> rent;
-            // cout<<"Please enter status"<<endl;
-            // cin>>status;
-            status = "0";
+            getRoomInfo();
             vip << roomNo << " " << bedNum << " " << ac << " " << rent << " " << status << endl;
-            // while(cin>>roomNo>>bedNum>>ac>>rent>>status)
-            // {
-            //     vip<<roomNo<<" "<<bedNum<<" "<<ac<<" "<<rent<<" "<<status<<endl;
-            // }
         }
         else if (choice == 2)
         {
             ofstream vip("normalroom.txt", ios::app);
             // string roomNo,bedNum,ac,rent,status;
-            cout << "Please enter room no" << endl;
-            cin >> roomNo;
-            cout << "Please enter number of bed" << endl;
-            cin >> bedNum;
-            cout << "Please enter Ac or Non-Ac" << endl;
-            cin >> ac;
-            cout << "Please enter rent" << endl;
-            cin >> rent;
-            // cout<<"Please enter status"<<endl;
-            // cin>>status;
-            status = "0";
+            getRoomInfo();
             vip << roomNo << " " << bedNum << " " << ac << " " << rent << " " << status << endl;
         }
         else if (choice == 3)
@@ -329,48 +401,60 @@ public:
             addRoom();
         }
     }
+    void tableMenu()
+    {
+        gotoxy(35, 8);
+        cout << "+---------+---------------+--------------+------------+-----------------+";
+        gotoxy(35, 9);
+        cout << "| Room No.| Number of Bed | Ac or Non Ac |    Rent    |       Status    |";
+        gotoxy(35, 10);
+        cout << "+---------+---------------+--------------+------------+-----------------+";
+    }
+    void allRoomInfo(string fName){
+        
+    }
     void displayAllRoom()
     {
         vipOrNormal();
-        // system("cls");
-        // cout << "1.Vip Room" << endl;
-        // cout << "2.Normal Room" << endl;
-        // cout << "3.Back" << endl;
         int choice;
         cin >> choice;
         if (choice == 1)
         {
+            system("cls");
             ifstream vip("viproom.txt", ios::app);
-            cout << "Show all Vip room:\n";
-            cout << "\n+---------+---------------+--------------+------------+-----------------+";
-            cout << "\n| Room No.| Number of bed | Ac or Non Ac |    Rent    |       Status    |";
-            cout << "\n+---------+---------------+--------------+------------+-----------------+\n";
+            ProjectName();
+            tableMenu();
+            int x=10;
             while (vip >> roomNo >> bedNum >> ac >> rent >> status)
             {
+                gotoxy(35, x += 1);
                 if (status == "0")
-                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                    cout << "   " << roomNo << "\t    " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
                          << "Available" << endl;
                 else
-                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                    cout << "   " << roomNo << "\t    " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
                          << "Booked" << endl;
             }
+            gotoxy(35,x+1);
         }
         else if (choice == 2)
         {
+            system("cls");
             ifstream normal("normalroom.txt", ios::app);
-            cout << "Show all Vip room:\n";
-            cout << "\n+---------+---------------+--------------+------------+-----------------+";
-            cout << "\n| Room No.| Number of Bed | Ac or Non Ac |    Rent    |       Status    |";
-            cout << "\n+---------+---------------+--------------+------------+-----------------+\n";
+            ProjectName();
+            tableMenu();
+            int x = 10;
             while (normal >> roomNo >> bedNum >> ac >> rent >> status)
             {
+                gotoxy(35, x += 1);
                 if (status == "0")
-                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                    cout << "   " << roomNo << "\t    " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
                          << "Available" << endl;
                 else
-                    cout << "   " << roomNo << "\t         " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
+                    cout << "   " << roomNo << "\t    " << bedNum << "\t        " << ac << "\t      " << rent << "\t     "
                          << "Booked" << endl;
             }
+             gotoxy(35,x+1);
         }
         else
         {
@@ -382,10 +466,6 @@ public:
     void displayAvailableRoom()
     {
         vipOrNormal();
-        // system("cls");
-        // cout << "1.Vip Room" << endl;
-        // cout << "2.Normal Room" << endl;
-        // cout << "3.Back" << endl;
         int choice;
         cin >> choice;
         if (choice == 1)
@@ -448,17 +528,13 @@ public:
     void modifyRoom()
     {
         vipOrNormal();
-        // system("cls");
-        // cout << "1.Vip Room" << endl;
-        // cout << "2.Normal Room" << endl;
-        // cout << "3.Back" << endl;
         int choice;
         cin >> choice;
         string rmNo;
-        cout << "Enter room no: ";
-        cin >> rmNo;
         if (choice == 1)
         {
+            cout << "Enter room no: ";
+            cin >> rmNo;
             // read mood
             fstream vip;
             vip.open("viproom.txt", ios::in);
@@ -488,12 +564,12 @@ public:
                 }
             }
             copyvip();
-            // vip.close();
-            // viptemp.close();
         }
 
         else if (choice == 2)
         {
+            cout << "Enter room no: ";
+            cin >> rmNo;
             // read mood
             fstream normal;
             normal.open("normalroom.txt", ios::in);
@@ -530,7 +606,6 @@ public:
         {
             return;
         }
-
         getch();
     }
 
@@ -664,11 +739,6 @@ public:
     void checkIn()
     {
         vipOrNormal();
-        // system("cls");
-        // cout << "1.Vip Room" << endl;
-        // cout << "2.Normal Room" << endl;
-        // cout << "3.Back" << endl;
-        // cout << "Enter your Choice: ";
         int choice;
         cin >> choice;
         if (choice == 3)
@@ -686,7 +756,8 @@ public:
         else if (choice == 1)
         {
             string tk = findRent(rm, 1);
-            cout << "Amount to be paid: " << tk << endl;
+            cout << "Room rent per day: " << tk << endl;
+
             cout << "Name: ";
             getchar();
             getline(cin, name);
@@ -706,8 +777,8 @@ public:
             cout << "Mobile: ";
             getline(cin, phn);
 
-            // cout << "Number of days:";
-            // getline(cin, days);
+            cout << "Number of days:";
+            getline(cin, days);
 
             time_t now = time(0);
             string dt = ctime(&now);
@@ -723,28 +794,50 @@ public:
             fout << "P.S: " << ps << endl;
             fout << "Dist.: " << dist << endl;
             fout << "Mobile: " << phn << endl;
-            // fout << "Number of days: " << days << endl;
+            fout << "Number of days: " << days << endl;
             fout << "Check In: " << dt << endl;
 
-            changeStatus(rm, 1, "1");
-            cout << "Check In Successful." << endl;
-            getch();
-            system("cls");
-            cout << "Do you want to purchase food ?" << endl;
-            cout << "1. Yes" << endl;
-            cout << "2. No" << endl;
-            cout << "Enter your choice: " << endl;
-            int option;
-            cin >> option;
-            if (option == 1)
-                purchaseFood();
+            string vauname = name + "vau.txt";
+            ofstream vauout;
+            vauout.open(vauname.c_str());
+            int totalRent = stoi(tk) * stoi(days);
+            cout << "Total amount to be paid: " << totalRent << endl;
+            cout << "Press 'paid' to continue" << endl;
+            string s;
+            cin >> s;
+            if (s == "paid")
+            {
+                changeStatus(rm, 1, "1");
+                cout << "Check In Successful." << endl;
+                string ss = tk + " X " + days + " = " + to_string(totalRent);
+                vauout << "Room rent: " << ss << endl;
+                // Customer info added
+                ofstream vip("AllCustomerInfo.txt", ios::app);
+                vip << name << endl;
+
+                getch();
+                system("cls");
+                cout << "Do you want to purchase food ?" << endl;
+                cout << "1. Yes" << endl;
+                cout << "2. No" << endl;
+                cout << "Enter your choice: " << endl;
+                int option;
+                cin >> option;
+                if (option == 1)
+                    purchaseFood();
+            }
+            // cout << "Thanks for your purchasing food." << endl;
+            else
+                cout << "Something went wrong." << endl;
+            // vauout<<
 
             // getch();
         }
         else if (choice == 2)
         {
             string tk = findRent(rm, 2);
-            cout << "Amount to be paid: " << tk << endl;
+            cout << "Room rent per day: " << tk << endl;
+
             cout << "Name: ";
             getchar();
             getline(cin, name);
@@ -764,8 +857,8 @@ public:
             cout << "Mobile: ";
             getline(cin, phn);
 
-            // cout << "Number of days:";
-            // getline(cin, days);
+            cout << "Number of days:";
+            getline(cin, days);
 
             time_t now = time(0);
             string dt = ctime(&now);
@@ -781,21 +874,43 @@ public:
             fout << "P.S: " << ps << endl;
             fout << "Dist.: " << dist << endl;
             fout << "Mobile: " << phn << endl;
-            // fout << "Number of days: " << days << endl;
+            fout << "Number of days: " << days << endl;
             fout << "Check In: " << dt << endl;
-            cout << "Check In Successful." << endl;
-            changeStatus(rm, 2, "1");
 
-            getch();
-            system("cls");
-            cout << "Do you want to purchase food ?" << endl;
-            cout << "1. Yes" << endl;
-            cout << "2. No" << endl;
-            cout << "Enter your choice: " << endl;
-            int option;
-            cin >> option;
-            if (option == 1)
-                purchaseFood();
+            // vauchar
+            string vauname = name + "vau.txt";
+            ofstream vauout;
+            vauout.open(vauname.c_str());
+            int totalRent = stoi(tk) * stoi(days);
+            cout << "Total amount to be paid: " << totalRent << endl;
+            cout << "Press 'paid' to continue" << endl;
+            string s;
+            cin >> s;
+            if (s == "paid")
+            {
+                changeStatus(rm, 2, "1");
+                cout << "Check In Successful." << endl;
+                string ss = tk + " X " + days + " = " + to_string(totalRent);
+                vauout << "Room rent: " << ss << endl;
+                // Customer info added
+                ofstream vip("AllCustomerInfo.txt", ios::app);
+                vip << name << endl;
+
+                getch();
+                system("cls");
+                cout << "Do you want to purchase food ?" << endl;
+                cout << "1. Yes" << endl;
+                cout << "2. No" << endl;
+                cout << "Enter your choice: " << endl;
+                int option;
+                cin >> option;
+                if (option == 1)
+                    purchaseFood();
+            }
+            // cout << "Thanks for your purchasing food." << endl;
+            else
+                cout << "Something went wrong." << endl;
+            // vauout<<
 
             // getch();
         }
@@ -816,12 +931,19 @@ public:
         system("cls");
         string name;
         getchar();
-        cout << "Please Enter your Name:";
-        getline(cin, name);
+        cout << "=> Please Enter your Name: ";
+        // getline(cin, name);
+        char s1[20];
+        scanf("%[^\n]%*c", &s1);
+        // char s2[20];
+        string unamev = s1;
+        strcat(s1, ".txt");
 
         // cout<<name<<endl;
         // ifstream vip("viproom.txt", ios::app);
-        string uname = name + ".txt";
+        // string uname = name + ".txt";
+        // fstream CustomerDetails;
+        string uname = s1;
         ifstream CustomerDetails(uname, ios::in);
         string line;
         int i = 0;
@@ -832,28 +954,58 @@ public:
             cout << line << endl;
             // i++;
         }
-        cout << "Please Enter your Room No to confirm check out:";
+        cout << "Payment history" << endl;
+
+        unamev = unamev + "vau.txt";
+
+        ifstream Customervau(unamev, ios::in);
+        while (getline(Customervau, line))
+        {
+            // if(i>0)
+            cout << line << endl;
+            // i++;
+        }
+        cout << endl;
+        cout << "=> Please Enter your Room No to confirm check out: ";
         string rmN;
         cin >> rmN;
-        cout << "Please Enter admin secret code to confirm check out:";
+        cout << "=> Please Enter admin secret code to confirm check out: ";
         int roomtype;
         cin >> roomtype;
 
         changeStatus(rmN, roomtype, "0");
 
         cout << "Check Out Successful." << endl;
+        remove(s1);
+        // remove(s2);
         getch();
         // return ;
     }
 
     void purchaseFood()
     {
+        cout << "=> Please enter your name: ";
+        string nam;
+        cin >> nam;
+        nam = nam + "vau.txt";
+        fstream vau;
+        fstream vauin;
+        vau.open(nam, ios::in);
+        if (!vau)
+        {
+            cout << "External customer are not able to buy food.\n";
+            getch();
+            return;
+        }
+        vau.close();
+        // remove(vau);
+        vauin.open(nam, ios::app);
         system("cls");
         cout << "1. Bread Omelette + Banana + Water -100Tk" << endl;
         cout << "2. Chicken Biriyani + Water -150TK" << endl;
         cout << "3. Beef Khicuri + Water - 250Tk" << endl;
         int option;
-        cout << "Please enter your choice." << endl;
+        cout << "=> Please enter your choice: ";
         cin >> option;
         switch (option)
         {
@@ -864,7 +1016,10 @@ public:
             string s;
             cin >> s;
             if (s == "paid")
+            {
+                vauin << "Bread Omelette + Banana + Water -100Tk" << endl;
                 cout << "Thanks for your purchasing food." << endl;
+            }
             else
                 cout << "Something went wrong." << endl;
             getch();
@@ -877,7 +1032,10 @@ public:
             string s;
             cin >> s;
             if (s == "paid")
+            {
+                vauin << "Chicken Biriyani + Water -150TK" << endl;
                 cout << "Thanks for your purchasing food" << endl;
+            }
             else
                 cout << "Something went wrong" << endl;
             getch();
@@ -890,7 +1048,10 @@ public:
             string s;
             cin >> s;
             if (s == "paid")
+            {
+                vauin << "Beef Khicuri + Water - 250Tk" << endl;
                 cout << "Thanks for your purchasing food" << endl;
+            }
             else
                 cout << "Something went wrong" << endl;
             getch();
@@ -937,10 +1098,9 @@ public:
         gotoxy(50, 17);
         cout << "| 5. Main menu                             |";
         gotoxy(50, 18);
-        cout << "|------------------------------------------|";
+        cout << "+------------------------------------------+";
         gotoxy(50, 19);
-        cout << "  Please enter your choice : ";
-
+        cout << "=> Please enter your choice: ";
 
         int choice;
         cin >> choice;
@@ -957,8 +1117,6 @@ public:
             // getch();
             break;
         case 3:
-            // cout << "Check out" << endl;
-            // getch();
             checkout();
             break;
         case 4:
@@ -996,7 +1154,7 @@ void mainMenu()
     gotoxy(50, 13);
     cout << "| 3. End the program                       |" << endl;
     gotoxy(50, 14);
-    cout << "|------------------------------------------|";
+    cout << "+------------------------------------------+";
 }
 
 void ProjectName()
@@ -1006,14 +1164,13 @@ void ProjectName()
     gotoxy(50, 6);
     cout << "|         HOTEL MANAGEMENT PROJECT         |";
     gotoxy(50, 7);
-    cout << "|------------------------------------------|";
+    cout << "+------------------------------------------+";
 }
 int main()
 {
 
     ProjectName();
-    // gotoxy(50,7);
-    // cout << "|                                          |"<<endl;
+
     gotoxy(50, 8);
     cout << "| Developed By:                            |" << endl;
     gotoxy(50, 9);
@@ -1031,16 +1188,13 @@ int main()
     gotoxy(50, 15);
     cout << "| ICT,MBSTU                                |";
     gotoxy(50, 16);
-    cout << "|------------------------------------------|";
+    cout << "+------------------------------------------+";
     gotoxy(50, 17);
-    cout << "| Press any key to enter the main program. |\n";
+    cout << "=> Press any key to enter the main program. \n";
     gotoxy(50, 18);
     cout << "  ";
     getch();
-    // gotoxy(50,19);
-    // cout << "+------------------------------------------+";
 
-    // Object creation
     administrator admin;
     customer custom;
 
@@ -1054,7 +1208,7 @@ int main()
         system("cls");
         mainMenu();
         gotoxy(50, 15);
-        cout << "  Please enter you choice: ";
+        cout << "=> Please enter you choice: ";
         cin >> choice;
         switch (choice)
         {
@@ -1087,23 +1241,27 @@ void manageRoom()
         gotoxy(50, 8);
         cout << "|                                          |";
         gotoxy(50, 9);
-        cout << "| 1. Add room                               |";
+        cout << "| 1. Add room                              |";
         gotoxy(50, 10);
         cout << "|                                          |";
         gotoxy(50, 11);
-        cout << "| 2. Display all room                       |";
+        cout << "| 2. Display all room                      |";
         gotoxy(50, 12);
         cout << "|                                          |";
         gotoxy(50, 13);
-        cout << "| 3. Modify room                            |";
+        cout << "| 3. Modify room                           |";
         gotoxy(50, 14);
         cout << "|                                          |";
         gotoxy(50, 15);
-        cout << "| 4. Back to main menu                      |";
+        cout << "| 4. Customer details                      |";
         gotoxy(50, 16);
-        cout << "|------------------------------------------|";
+        cout << "|                                          |";
         gotoxy(50, 17);
-        cout << "  Please enter your choice : ";
+        cout << "| 5. Back to main menu                     |";
+        gotoxy(50, 18);
+        cout << "+------------------------------------------+";
+        gotoxy(50, 19);
+        cout << "=>  Please enter your choice : ";
 
         cin >> option;
         switch (option)
@@ -1120,9 +1278,15 @@ void manageRoom()
             break;
         }
         case 4:
+        {
+            rm.CustomerDetails();
             break;
+        }
+        case 5:
+            return;
+            // break;
         default:
-            cout << "\nPlease enter correct option\n";
+            cout << "\nPlease enter correct option.\n";
             break;
         }
     } while (option != 4);

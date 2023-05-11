@@ -1,1 +1,1 @@
-cout << "1.Add room\n2.Display all room\n3.Modify room\n4.Back to main menu\nEnter your option:";
+manageRoom
