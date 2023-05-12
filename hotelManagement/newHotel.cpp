@@ -333,9 +333,12 @@ public:
             int x = 9;
             while (getline(CustomerDetails, line))
             {
-                gotoxy(50, x += 2);
-                cout << "=> " << line << endl;
+                if(line!=""){
+                    gotoxy(50, x += 2);
+                    cout << "=> " << line << endl;
+                }
             }
+            gotoxy(50, x += 1);
             getch();
             break;
         }
@@ -755,6 +758,38 @@ public:
             return 1;
         }
     }
+    string name, vill, post, ps, dist, phn, days;
+    void addCustomerDetails()
+    {
+        getchar();
+        gotoxy(50, 11);
+        cout << "=> Name: ";
+        getline(cin, name);
+
+        gotoxy(50, 12);
+        cout << "=> Village: ";
+        getline(cin, vill);
+
+        gotoxy(50, 13);
+        cout << "=> P.O: ";
+        getline(cin, post);
+
+        gotoxy(50, 14);
+        cout << "=> P.S: ";
+        getline(cin, ps);
+
+        gotoxy(50, 15);
+        cout << "=> Dist.: ";
+        getline(cin, dist);
+
+        gotoxy(50, 16);
+        cout << "=> Mobile: ";
+        getline(cin, phn);
+
+        gotoxy(50, 17);
+        cout << "=> Number of days: ";
+        getline(cin, days);
+    }
     void checkIn()
     {
         vipOrNormal();
@@ -762,42 +797,26 @@ public:
         cin >> choice;
         if (choice == 3)
             return;
-
+        system("cls");
+        ProjectName();
         string rm;
-        cout << "Room No: ";
+        gotoxy(50, 9);
+        cout << "=> Room No: ";
         cin >> rm;
 
-        string name, vill, post, ps, dist, phn, days;
         if (checkStatus(rm, choice) == 1)
-            cout << "This room is not available!" << endl;
+        {
+            gotoxy(50, 11);
+            cout << "=> This room is not available!";
+        }
         // else if(checkStatus(rm,choice)==-1)
 
         else if (choice == 1)
         {
             string tk = findRent(rm, 1);
-            cout << "Room rent per day: " << tk << endl;
-
-            cout << "Name: ";
-            getchar();
-            getline(cin, name);
-
-            cout << "Village: ";
-            getline(cin, vill);
-
-            cout << "P.O: ";
-            getline(cin, post);
-
-            cout << "P.S: ";
-            getline(cin, ps);
-
-            cout << "Dist.: ";
-            getline(cin, dist);
-
-            cout << "Mobile: ";
-            getline(cin, phn);
-
-            cout << "Number of days:";
-            getline(cin, days);
+            gotoxy(50, 10);
+            cout << "=> Room rent per day: " << tk << endl;
+            addCustomerDetails();
 
             time_t now = time(0);
             string dt = ctime(&now);
@@ -820,26 +839,46 @@ public:
             ofstream vauout;
             vauout.open(vauname.c_str());
             int totalRent = stoi(tk) * stoi(days);
-            cout << "Total amount to be paid: " << totalRent << endl;
-            cout << "Press 'paid' to continue" << endl;
+            gotoxy(50, 18);
+            cout << "=> Total amount to be paid: " << totalRent;
+            gotoxy(50, 19);
+            cout << "=> Press 'paid' to continue: ";
             string s;
             cin >> s;
             if (s == "paid")
             {
                 changeStatus(rm, 1, "1");
-                cout << "Check In Successful." << endl;
+                gotoxy(50, 20);
+                cout << "=> Check In Successful.";
                 string ss = tk + " X " + days + " = " + to_string(totalRent);
                 vauout << "Room rent: " << ss << endl;
                 // Customer info added
-                ofstream vip("AllCustomerInfo.txt", ios::app);
+                fstream vip("AllCustomerInfo.txt", ios::app);
+                string s;
+                bool flag=false ;
+                while(vip>>s){
+                    if(s==name)
+                        {
+                        flag=true;
+                        break;
+                        }
+                }
+                if(flag==false)
                 vip << name << endl;
 
                 getch();
                 system("cls");
-                cout << "Do you want to purchase food ?" << endl;
-                cout << "1. Yes" << endl;
-                cout << "2. No" << endl;
-                cout << "Enter your choice: " << endl;
+                ProjectName();
+                gotoxy(50, 9);
+                cout << "=> Do you want to purchase food ?" << endl;
+
+                gotoxy(50, 11);
+                cout << " 1. Yes";
+                gotoxy(50, 12);
+                cout << " 2. No";
+
+                gotoxy(50, 14);
+                cout << "=> Enter your choice: ";
                 int option;
                 cin >> option;
                 if (option == 1)
@@ -847,37 +886,17 @@ public:
             }
             // cout << "Thanks for your purchasing food." << endl;
             else
-                cout << "Something went wrong." << endl;
-            // vauout<<
-
-            // getch();
+            {
+                gotoxy(50, 20);
+                cout << "=> Something went wrong.";
+            }
         }
         else if (choice == 2)
         {
             string tk = findRent(rm, 2);
-            cout << "Room rent per day: " << tk << endl;
-
-            cout << "Name: ";
-            getchar();
-            getline(cin, name);
-
-            cout << "Village: ";
-            getline(cin, vill);
-
-            cout << "P.O: ";
-            getline(cin, post);
-
-            cout << "P.S: ";
-            getline(cin, ps);
-
-            cout << "Dist.: ";
-            getline(cin, dist);
-
-            cout << "Mobile: ";
-            getline(cin, phn);
-
-            cout << "Number of days:";
-            getline(cin, days);
+            gotoxy(50, 10);
+            cout << "=> Room rent per day: " << tk << endl;
+            addCustomerDetails();
 
             time_t now = time(0);
             string dt = ctime(&now);
@@ -901,14 +920,17 @@ public:
             ofstream vauout;
             vauout.open(vauname.c_str());
             int totalRent = stoi(tk) * stoi(days);
-            cout << "Total amount to be paid: " << totalRent << endl;
-            cout << "Press 'paid' to continue" << endl;
+            gotoxy(50, 18);
+            cout << "=> Total amount to be paid: " << totalRent;
+            gotoxy(50, 19);
+            cout << "=> Press 'paid' to continue: ";
             string s;
             cin >> s;
             if (s == "paid")
             {
                 changeStatus(rm, 2, "1");
-                cout << "Check In Successful." << endl;
+                gotoxy(50, 20);
+                cout << "=> Check In Successful.";
                 string ss = tk + " X " + days + " = " + to_string(totalRent);
                 vauout << "Room rent: " << ss << endl;
                 // Customer info added
@@ -917,92 +939,152 @@ public:
 
                 getch();
                 system("cls");
-                cout << "Do you want to purchase food ?" << endl;
-                cout << "1. Yes" << endl;
-                cout << "2. No" << endl;
-                cout << "Enter your choice: " << endl;
+                ProjectName();
+                gotoxy(50, 9);
+                cout << "=> Do you want to purchase food ?" << endl;
+
+                gotoxy(50, 11);
+                cout << " 1. Yes";
+                gotoxy(50, 12);
+                cout << " 2. No";
+
+                gotoxy(50, 14);
+                cout << "=> Enter your choice: ";
                 int option;
                 cin >> option;
                 if (option == 1)
                     purchaseFood();
             }
-            // cout << "Thanks for your purchasing food." << endl;
             else
-                cout << "Something went wrong." << endl;
-            // vauout<<
-
-            // getch();
+            {
+                gotoxy(50, 20);
+                cout << "=> Something went wrong.";
+            }
         }
-        // else if(choice == 3)
-        //     customermenu();
         else
         {
-            cout << "Your have a wrong choice. Press a key to try again.";
-            // getch();
-            // checkIn();
+            cout << "=> Your have a wrong choice.";
         }
-
         getch();
-        // return ;
     }
     void checkout()
     {
         system("cls");
-        string name;
         getchar();
-        cout << "=> Please Enter your Name: ";
-        // getline(cin, name);
-        char s1[20];
-        scanf("%[^\n]%*c", &s1);
-        // char s2[20];
-        string unamev = s1;
-        strcat(s1, ".txt");
-
-        // cout<<name<<endl;
-        // ifstream vip("viproom.txt", ios::app);
-        // string uname = name + ".txt";
-        // fstream CustomerDetails;
-        string uname = s1;
-        ifstream CustomerDetails(uname, ios::in);
+        string name;
+        ProjectName();
+        gotoxy(50, 9);
+        cout << "=> Please enter name: ";
+        getline(cin, name);
+        ifstream CustomerDetails(name + ".txt", ios::in);
         string line;
         int i = 0;
-
-        while (getline(CustomerDetails, line))
+        if (CustomerDetails)
         {
-            // if(i>0)
-            cout << line << endl;
-            // i++;
+            system("cls");
+            ProjectName();
+            int x = 8;
+            while (getline(CustomerDetails, line))
+            {
+                gotoxy(50, x += 1);
+                cout << line << endl;
+            }
+
+            name = name + "vau.txt";
+            ifstream Customervau(name, ios::in);
+            if (Customervau)
+            {
+                gotoxy(50, x += 1);
+                cout << "Payment history" << endl;
+                while (getline(Customervau, line))
+                {
+                    gotoxy(50, x += 1);
+                    cout << line << endl;
+                }
+            }
+            gotoxy(50, x += 1);
+            cout << "=> Please enter your Room No to confirm check out: ";
+            string rmN;
+            cin >> rmN;
+            gotoxy(50, x += 1);
+            cout << "=> Please enter admin secret code to confirm check out: ";
+            int roomtype;
+            cin >> roomtype;
+
+            changeStatus(rmN, roomtype, "0");
+            gotoxy(50, x += 1);
+            cout << "=> Check Out Successful.";
+            // remove(s1);
+            // remove(name + ".txt");
+            getch();
+            return;
         }
-        cout << "Payment history" << endl;
-
-        unamev = unamev + "vau.txt";
-
-        ifstream Customervau(unamev, ios::in);
-        while (getline(Customervau, line))
+        else
         {
-            // if(i>0)
-            cout << line << endl;
-            // i++;
+            gotoxy(50, 11);
+            cout << "=> No data available.";
+            // CustomerDetails();
         }
-        cout << endl;
-        cout << "=> Please Enter your Room No to confirm check out: ";
-        string rmN;
-        cin >> rmN;
-        cout << "=> Please Enter admin secret code to confirm check out: ";
-        int roomtype;
-        cin >> roomtype;
 
-        changeStatus(rmN, roomtype, "0");
+        // system("cls");
+        // getchar();
+        // gotoxy(50, 9);
+        // cout << "=> Please enter your name: ";
+        // char s1[20];
+        // scanf("%[^\n]%*c", &s1);
+        // string unamev = s1;
+        // strcat(s1, ".txt");
 
-        cout << "Check Out Successful." << endl;
-        remove(s1);
-        // remove(s2);
-        getch();
-        // return ;
+        // // ifstream vip("viproom.txt", ios::app);
+        // // string uname = name + ".txt";
+        // // fstream CustomerDetails;
+        // string uname = s1;
+        // ifstream CustomerDetails(uname, ios::in);
+
+        // string line;
+        // int i = 0;
+        // int x = 9;
+        // while (getline(CustomerDetails, line))
+        // {
+        //     // if(i>0)
+        //     gotoxy(50, x += 1);
+        //     cout << line << endl;
+        //     // i++;
+        // }
+        // cout << "Payment history" << endl;
+
+        // unamev = unamev + "vau.txt";
+
+        // ifstream Customervau(unamev, ios::in);
+        // while (getline(Customervau, line))
+        // {
+        //     // if(i>0)
+        //     cout << line << endl;
+        //     // i++;
+        // }
+        // cout << endl;
+
+        // cout << "=> Please Enter your Room No to confirm check out: ";
+        // string rmN;
+        // cin >> rmN;
+        // cout << "=> Please Enter admin secret code to confirm check out: ";
+        // int roomtype;
+        // cin >> roomtype;
+
+        // changeStatus(rmN, roomtype, "0");
+
+        // cout << "=> Check Out Successful." << endl;
+        // remove(s1);
+        // // remove(s2);
+        // getch();
+        // // return ;
     }
 
     void purchaseFood()
     {
+        system("cls");
+        ProjectName();
+        gotoxy(50, 9);
         cout << "=> Please enter your name: ";
         string nam;
         cin >> nam;
@@ -1012,73 +1094,98 @@ public:
         vau.open(nam, ios::in);
         if (!vau)
         {
-            cout << "External customer are not able to buy food.\n";
+            gotoxy(50, 11);
+            cout << "=> External customer are not able to buy food.";
             getch();
             return;
         }
         vau.close();
-        // remove(vau);
+
         vauin.open(nam, ios::app);
         system("cls");
-        cout << "1. Bread Omelette + Banana + Water -100Tk" << endl;
-        cout << "2. Chicken Biriyani + Water -150TK" << endl;
-        cout << "3. Beef Khicuri + Water - 250Tk" << endl;
+        ProjectName();
+        gotoxy(50, 9);
+        cout << "1. Bread Omelette + Banana + Water -100Tk";
+        gotoxy(50, 10);
+        cout << "2. Chicken Biriyani + Water -150TK";
+        gotoxy(50, 11);
+        cout << "3. Beef Khicuri + Water - 250Tk";
         int option;
+        gotoxy(50, 12);
         cout << "=> Please enter your choice: ";
         cin >> option;
         switch (option)
         {
         case 1:
         {
-            cout << "Amount to be paid - 100Tk" << endl;
-            cout << "Press 'paid' to continue" << endl;
+            gotoxy(50, 13);
+            cout << "=> Amount to be paid - 100Tk";
+            gotoxy(50, 14);
+            cout << "=> Press 'paid' to continue: ";
             string s;
             cin >> s;
             if (s == "paid")
             {
                 vauin << "Bread Omelette + Banana + Water -100Tk" << endl;
-                cout << "Thanks for your purchasing food." << endl;
+                gotoxy(50, 15);
+                cout << "=> Thanks for your purchasing food.";
             }
             else
+            {
+                gotoxy(50, 15);
                 cout << "Something went wrong." << endl;
+            }
             getch();
             break;
         }
         case 2:
         {
-            cout << "Amount to be paid - 150Tk" << endl;
-            cout << "Press 'paid' to continue" << endl;
+            gotoxy(50, 13);
+            cout << "=> Amount to be paid - 150Tk";
+            gotoxy(50, 14);
+            cout << "=> Press 'paid' to continue: ";
             string s;
             cin >> s;
             if (s == "paid")
             {
                 vauin << "Chicken Biriyani + Water -150TK" << endl;
-                cout << "Thanks for your purchasing food" << endl;
+                gotoxy(50, 15);
+                cout << "=> Thanks for your purchasing food.";
             }
             else
-                cout << "Something went wrong" << endl;
+            {
+                gotoxy(50, 15);
+                cout << "Something went wrong." << endl;
+            }
             getch();
             break;
         }
         case 3:
         {
-            cout << "Amount to be paid - 250Tk" << endl;
-            cout << "Press 'paid' to continue" << endl;
+            gotoxy(50, 13);
+            cout << "=> Amount to be paid - 250Tk";
+            gotoxy(50, 14);
+            cout << "=> Press 'paid' to continue: ";
             string s;
             cin >> s;
             if (s == "paid")
             {
                 vauin << "Beef Khicuri + Water - 250Tk" << endl;
-                cout << "Thanks for your purchasing food" << endl;
+                gotoxy(50, 15);
+                cout << "=> Thanks for your purchasing food.";
             }
             else
-                cout << "Something went wrong" << endl;
+            {
+                gotoxy(50, 15);
+                cout << "Something went wrong." << endl;
+            }
             getch();
             break;
         }
         default:
         {
-            cout << "Your have a wrong choice. Press a key to try again.";
+            gotoxy(50, 13);
+            cout << "=> Your have a wrong choice. Press a key to try again.";
             getch();
             purchaseFood();
             break;
@@ -1126,22 +1233,17 @@ public:
         switch (choice)
         {
         case 1:
-            // cout<<"Available Room";
             displayAvailableRoom();
             getch();
             customermenu();
         case 2:
-            // cout << "Check In" << endl;
             checkIn();
-            // getch();
             break;
         case 3:
             checkout();
             break;
         case 4:
-            // cout<<"Purchase food"<<endl;
             purchaseFood();
-            // getch();
             break;
         case 5:
             return;
@@ -1150,9 +1252,6 @@ public:
             getch();
             customermenu();
         }
-        // cout << "Customers" << endl;
-        // getch();
-        // return;
     }
 };
 
@@ -1217,10 +1316,6 @@ int main()
     administrator admin;
     customer custom;
 
-    // roomManagement ob;
-    // ob.modifyRoom();
-
-    // Main Menu
     int choice;
     do
     {
