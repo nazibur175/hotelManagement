@@ -290,24 +290,40 @@ public:
                 system("cls");
                 ProjectName();
                 int x = 8;
+                gotoxy(50,x);
+                cout<<"|";
+                gotoxy(50+43, x);
+                cout<<"|";
                 while (getline(CustomerDetails, line))
                 {
                     gotoxy(50, x += 1);
-                    cout << line << endl;
+                    cout <<"| "<<line << endl;
+                    gotoxy(50+43, x);
+                    cout<<"|";
                 }
-
+                
                 uname = uname + "vau.txt";
                 ifstream Customervau(uname, ios::in);
                 if (Customervau)
                 {
+                    gotoxy(50, x+=1);
+                    cout<<"+------------------------------------------+";
                     gotoxy(50, x += 1);
-                    cout << "Payment history" << endl;
+                    cout << "| Payment history" << endl;
+                    gotoxy(50+43, x);
+                    cout<<"|";
+
                     while (getline(Customervau, line))
                     {
                         gotoxy(50, x += 1);
-                        cout << line << endl;
+                        cout <<"| "<<line << endl;
+                        gotoxy(50+43, x);
+                        cout<<"|";
+
                     }
                 }
+                gotoxy(50, x += 1);
+                cout<<"+------------------------------------------+";
                 gotoxy(50, x += 1);
             }
             else
@@ -984,30 +1000,45 @@ public:
             system("cls");
             ProjectName();
             int x = 8;
+            gotoxy(50,x);
+            cout<<"|";
+            gotoxy(50+43,x);
+            cout<<"|";
             while (getline(CustomerDetails, line))
             {
                 gotoxy(50, x += 1);
-                cout << line << endl;
+                cout <<"| "<< line;
+                gotoxy(50+43, x);
+                cout<<"|";
+
             }
 
             name = name + "vau.txt";
             ifstream Customervau(name, ios::in);
             if (Customervau)
             {
+                gotoxy(50,x+=1);
+                cout<<"+------------------------------------------+";
                 gotoxy(50, x += 1);
-                cout << "Payment history" << endl;
+                cout << "| Payment history";
+                gotoxy(50+43,x);
+                cout<<"|";
                 while (getline(Customervau, line))
                 {
                     gotoxy(50, x += 1);
-                    cout << line << endl;
+                    cout <<"| "<< line;
+                    gotoxy(50+43,x);
+                    cout<<"|";
                 }
             }
+            gotoxy(50,x+=1);
+            cout<<"+------------------------------------------+";
             gotoxy(50, x += 1);
-            cout << "=> Please enter your Room No to confirm check out: ";
+            cout << "=> Enter your room no to confirm check out: ";
             string rmN;
             cin >> rmN;
             gotoxy(50, x += 1);
-            cout << "=> Please enter admin secret code to confirm check out: ";
+            cout << "=> Enter admin secret code to confirm check out: ";
             int roomtype;
             cin >> roomtype;
 
@@ -1023,6 +1054,7 @@ public:
         {
             gotoxy(50, 11);
             cout << "=> No data available.";
+            getch();
             // CustomerDetails();
         }
 
